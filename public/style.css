@@ -19,3 +19,18 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.all-products{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.product{
+  margin: 1vh;
+  padding: 1vh;
+  width: 30vw;
+  background-color: cadetblue;
+  border: 1px solid red;
+  border-radius: 5px;
+}
