@@ -30,10 +30,7 @@ const Product = db.define('product', {
   },
   imgUrl: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-        isUrl: true
-    }
+    defaultValue: 'https://c1.staticflickr.com/1/525/20123314076_fd18b5ede6_b.jpg'
   },
   categories: {
     type: Sequelize.ARRAY(Sequelize.STRING),
