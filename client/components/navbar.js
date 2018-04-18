@@ -21,10 +21,10 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           ) : (
             <div className="navbar-div">
               {/* The navbar will show these links before you log in */}
-              <NavLink to="/login" activeClassName="selected">
+              <NavLink to="/login">
                 Login
               </NavLink>
-              <NavLink to="/signup" activeClassName="selected">
+              <NavLink to="/signup">
                 Sign Up
               </NavLink>
             </div>
@@ -32,7 +32,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         </nav>
       </div>
       <div className="filter-products-container">
-        <div>All Products:</div>
+        <div>
+          <NavLink to="/" activeClassName="selected">
+            All Products:
+          </NavLink>
+        </div>
         <input className="filter-products" />
       </div>
     </div>

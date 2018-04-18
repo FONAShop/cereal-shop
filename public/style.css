@@ -29,7 +29,7 @@ form div {
 }
 
 .selected {
-  color: rgb(255, 255, 255);
+  color: rgb(3, 151, 250);
 }
 
 .navbar-container-outer {
@@ -76,8 +76,8 @@ form div {
   margin: 1vh;
   padding: 1vh;
   width: 30vw;
-  background-color: cadetblue;
-  border: 1px solid red;
+  background-color: rgb(199, 206, 206);
+  border: 1px solid rgb(24, 71, 116);
   border-radius: 5px;
 }
 
