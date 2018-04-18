@@ -7,9 +7,7 @@ import { Link } from 'react-router-dom';
 /**
  * DUMB COMPONENT
  */
-export function AllProducts(props) {
-  // console.log('====== all props: ', props);
-  const products = props.allProducts;
+export function AllProducts({ products}) {
   return (
     <div className="all-products">
       {products &&
@@ -33,13 +31,26 @@ export function AllProducts(props) {
 const mapStateToProps = state => {
   // console.log('====== state: ', state);
   return {
-    allProducts: state.product
+    products: state.products
   };
 };
+
+// const mapDispatchToProps = { fetchProducts };
 
 //================================================//
 
 /**
  * CONTAINER
  */
-export default connect(mapStateToProps)(AllProducts);
+
+// class AllProductsContainer extends React.Component {
+//   componentDidMount () {
+//     this.props.fetchProducts()
+//   }
+
+//   render () {
+//     return <AllProducts {...this.props} />
+//   }
+// }
+
+export default connect(mapStateToProps)(AllProductsContainer);

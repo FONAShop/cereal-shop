@@ -12,7 +12,8 @@ const Product = db.define('product', {
   description: {
     type: Sequelize.TEXT
   },
-  price: {
+  price: { // think about just storing cents as an int
+    // and using virtual getter / setter for conversion
     type: Sequelize.FLOAT,
     allowNull: false,
     validate: {

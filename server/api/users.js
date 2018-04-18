@@ -2,7 +2,15 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
-router.get('/', (req, res, next) => {
+function requireAdmin (req, res, next) {
+  if (req.user.isAdmin) {
+    next();
+  } else {
+    res.sendStatus(401);
+  }
+}
+
+router.get('/', requireAdmin, (req, res, next) => {
   User.findAll({
     // explicitly select only the id and email fields - even though
     // users' passwords are encrypted, it won't help if we just
