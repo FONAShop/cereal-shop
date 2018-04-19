@@ -71,10 +71,10 @@ export function minusFromCart (productId) {
 
 export function deleteProductFromCart (productId) {
   return function thunk (dispatch) {
-    return axios.delete('/api/cart/delete', productId)
+    return axios.put('/api/cart/delete', productId)
       .then(res => res.data)
-      .then((deletedProductId) => {
-        dispatch(deleteProdFromCart(deletedProductId));
+      .then((deletedProduct) => {
+        dispatch(deleteProdFromCart(deletedProduct.productId));
       });
   }
 }
