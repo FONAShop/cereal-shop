@@ -19,8 +19,7 @@ class AllProducts extends Component{
     const products = this.props.allProducts;
     return (
       <div className="all-products">
-        {products &&
-          products.map(product => (
+        {products.map(product => (
             <div className="product" key={product.id}>
               <Product product={product} />
               <button onClick={this.addToCart}>Add to cart</button>
@@ -33,7 +32,7 @@ class AllProducts extends Component{
 
 const mapStateToProps = state => {
   return {
-    allProducts: state.product
+    allProducts: state.product.allProducts
   };
 };
 
