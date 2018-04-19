@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Product from './Product'
 
-export function AllProducts(props) {
-  // console.log('====== all props: ', props);
-  const products = props.allProducts;
-  return (
-    <div className="all-products">
-      {products &&
-        products.map(product => (
-          <div className="product" key={product.id}>
-            <img src={product.imgUrl} />
-            <div>{'Title: ' + product.name}</div>
-            <div>{'Price: ' + product.price}</div>
-            <div>{'Amount: ' + product.quantity}</div>
-            <div>{'Desc: ' + product.description}</div>
-          </div>
-        ))}
-    </div>
-  );
+
+class AllProducts extends Component{
+  constructor (props) {
+    super(props)
+    this.state = {}
+    this.addToCart = this.addToCart.bind(this);
+  }
+
+  addToCart(){
+    /* to incorporate action creators and thunks from cart */
+  }
+
+  render(){
+    const products = this.props.allProducts;
+    return (
+      <div className="all-products">
+        {products &&
+          products.map(product => (
+            <div className="product" key={product.id}>
+              <Product product={product} />
+              <button onClick={this.addToCart}>Add to cart</button>
+            </div>
+          ))}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => {
