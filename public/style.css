@@ -10,9 +10,18 @@ label {
   display: block;
 }
 
+img {
+  width: 30vw;
+  height: 30vh;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
+}
+
+nav Link {
+  color: chartreuse;
 }
 
 form div {
@@ -20,17 +29,60 @@ form div {
   display: inline-block;
 }
 
-.all-products{
+.h1 {
+  font-family: fantasy;
+}
+
+.selected {
+  color: rgb(3, 151, 250);
+}
+
+.navbar-container-outer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navbar-div {
+  background-color: rgb(157, 216, 240);
+  display: flex;
+  justify-content: end;
+  border: 1px solid rgb(0, 68, 255);
+}
+
+.filter-products-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.filter-products {
+  width: 80%;
+  height: 2vh;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 100%;
+  font-style: italic;
+}
+
+.all-products {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
 }
 
-.product{
+.product {
   margin: 1vh;
   padding: 1vh;
   width: 30vw;
-  background-color: cadetblue;
-  border: 1px solid red;
+  background-color: rgb(199, 206, 206);
+  border: 1px solid rgb(24, 71, 116);
   border-radius: 5px;
 }
+

@@ -17,17 +17,17 @@ export function getCart (cart) {
   }
 }
 
-export function addToCart (productId) {
+export function addToCart (product) {
   return {
     type: ADD_TO_CART,
-    productId
+    product
   }
 }
 
-export function minusOneFromCart (productId) {
+export function minusOneFromCart (product) {
   return {
     type: MINUS_FROM_CART,
-    productId
+    product
   }
 }
 
@@ -45,36 +45,37 @@ export function fetchCart () {
       .then(res => res.data)
       .then(cart => {
         dispatch(getCart(cart))
-      })
+      });
   }
 }
 
-export function addProductToCart (product) {
+export function addProductToCart (productId) {
   return function thunk (dispatch) {
-    return axios.put('/api/cart/update', product)
+    return axios.put('/api/cart/add', productId)
       .then(res => res.data)
       .then(addedProduct => {
         dispatch(addToCart(addedProduct));
-      })
+      });
   }
 }
 
-export function minusFromCart (product) {
+export function minusFromCart (productId) {
   return function thunk (dispatch) {
-    return axios.put('/api/cart/update', product)
+    return axios.put('/api/cart/minus', productId)
       .then(res => res.data)
       .then(subtractedProduct => {
         dispatch(minusOneFromCart(subtractedProduct));
-      })
+      });
   }
 }
 
-export function deleteProductFromCart (product) {
+export function deleteProductFromCart (productId) {
   return function thunk (dispatch) {
-    return axios.delete('/api/cart/update', product)
-      .then(() => {
-        dispatch(deleteProdFromCart(`{PRODUCTID}`))
-      })
+    return axios.delete('/api/cart/delete', productId)
+      .then(res => res.data)
+      .then((deletedProductId) => {
+        dispatch(deleteProdFromCart(deletedProductId));
+      });
   }
 }
 
@@ -87,13 +88,13 @@ export default function reducer (state = initialState, action) {
     case ADD_TO_CART:
       return {
         ...state,
-        [action.productId]: (state[action.productId] || 0) + 1
+        ...action.product
       }
 
     case MINUS_FROM_CART:
       return {
         ...state,
-        [action.productId]: (state[action.productId] || 0) - 1
+        ...action.product
       }
 
     case DELETE_PRODUCT_FROM_CART:
