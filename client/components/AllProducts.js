@@ -15,8 +15,8 @@ class AllProducts extends Component{
     const { addButtonClick } = this.props;
     return (
       <div className="all-products">
-        {
-          products.map(product => (
+
+        {products.map(product => (
             <div className="product" key={product.id}>
             {console.log('product: ', product)}
               <Product product={product} />
@@ -30,7 +30,7 @@ class AllProducts extends Component{
 
 const mapStateToProps = state => {
   return {
-    allProducts: state.product
+    allProducts: state.product.allProducts
   };
 };
 
