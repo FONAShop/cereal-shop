@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Product from './Product'
-
+import Product from './Product';
+import { addProductToCart } from '../store';
 
 class AllProducts extends Component{
   constructor (props) {
     super(props)
     this.state = {}
-    this.addToCart = this.addToCart.bind(this);
-  }
-
-  addToCart(){
-    /* to incorporate action creators and thunks from cart */
   }
 
   render(){
     const products = this.props.allProducts;
+    const { addButtonClick } = this.props;
     return (
       <div className="all-products">
+
         {products.map(product => (
             <div className="product" key={product.id}>
+            {console.log('product: ', product)}
               <Product product={product} />
-              <button onClick={this.addToCart}>Add to cart</button>
+              <button name={product.id} onClick={(e) => addButtonClick(e)}>Add to cart</button>
             </div>
           ))}
       </div>
@@ -36,4 +34,13 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(AllProducts);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    addButtonClick (event) {
+      const productId = {productId: event.target.name};
+      dispatch(addProductToCart(productId));
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);
