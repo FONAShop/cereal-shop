@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { fetchProduct } from '../store/product'
 
 //get data for single product
-
 //render a view for product information
 //render a view for reviews
 
@@ -15,20 +14,36 @@ class SingleProduct extends Component {
   }
 
   componentDidMount(){
-    this.props.loadSingleProduct()
+    // this.props.loadSingleProduct()
   }
 
 
   render(){
+    const productDetails = this.props.selectedProduct
     return (
-      <div>Render something</div>
+      <div>
+        { productDetails && (
+            <div key={productDetails.id}>
+              <img src={productDetails.imgUrl} />
+              <div>{'Title: ' + productDetails.name}</div>
+              <div>{'Price: ' + productDetails.price}</div>
+              <div>{'Amount: ' + productDetails.quantity}</div>
+              <div>{'Desc: ' + productDetails.description}</div>
+            </div>
+          )
+        }
+      </div>
     )
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state, ownProps){
+  const paramId = Number(ownProps.match.params.id);
+  const selectedProduct = state.product.allProducts.find(product => product.id === paramId);
   return {
-    selectedProduct: state.selectedProduct
+    selectedProduct,
+    allProducts: state.allProducts,
+    // selectedProduct: state.selectedProduct
   }
 }
 
