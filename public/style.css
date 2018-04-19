@@ -10,6 +10,11 @@ label {
   display: block;
 }
 
+img {
+  width: 30vw;
+  height: 30vh;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
