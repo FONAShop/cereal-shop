@@ -44,16 +44,22 @@ const createApp = () => {
   app.use(compression());
 
   // session middleware with passport
-  app.use(
-    session({
-      secret: process.env.SESSION_SECRET || "my best friend is Cody",
-      store: sessionStore,
-      resave: false,
-      saveUninitialized: false
-    })
-  );
-  app.use(passport.initialize());
-  app.use(passport.session());
+  app.use(session({
+    secret: process.env.SESSION_SECRET || 'my best friend is Cody',
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false
+  }))
+
+  app.use((req, res, next) => {
+    if (!req.session.cart) {
+      req.session.cart = {};
+    }
+    next();
+  })
+
+  app.use(passport.initialize())
+  app.use(passport.session())
 
   // auth and api routes
   app.use("/auth", require("./auth"));
@@ -97,7 +103,7 @@ const startListening = () => {
   require("./socket")(io);
 };
 
-const syncDb = () => db.sync({ force: false });
+const syncDb = () => db.sync()
 
 // This evaluates as true when this file is run directly from the command line,
 // i.e. when we say 'node server/index.js' (or 'nodemon server/index.js', or 'nodemon server', etc)
