@@ -1,35 +1,50 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchCart, addProductToCart, minusFromCart, deleteProductFromCart } from '../store';
 
-function Cart(props) {
-  return (
-    <div>
-      <div>
-        {props.cartItems &&
-          props.cartItems.map(items => {
-            return (
-              <div>
-                <div>
-                  <img src="" placeholder="#" />
-                  <span>{items.descript}</span>
-                </div>
-                <div>
-                  <label>Price per unit</label>
-                  <label>Quantity</label>
-                  <label>Total price</label>
-                </div>
+class Cart extends Component {
+  componentDidMount() {
+    this.props.loadCart();
+  }
+
+  render() {
+    const { cart, cartProducts } = this.props;
+    console.log(cartProducts);
+    if (!cartProducts) {
+      return <div />;
+    } else if (cartProducts.length < 1) {
+      return <p>Your cart is empty.</p>
+    } else {
+      return (
+        <div>
+          { cartProducts.map(product => (
+              <div key={product.id}>
+                <img src={product.imgUrl} alt={product.name}/>
+                <span>{product.name}</span>
+                <span>{'Price: $' + product.price}</span>
+                <span>{'Quantity: ' + cart[product.id]}</span>
+                <span>{'Subtotal: ' + product.price * cart[product.id]}</span>
               </div>
-            );
-          })}
-      </div>
-    </div>
-  );
+            ))
+
+          }
+        </div>
+      );
+    }
+  }
 }
 
-function mapStateToProps(state) {
+const mapState = ({ cart, product }) => {
+  const cartProducts = product.allProducts.filter(pt => cart.hasOwnProperty(pt.id));
+  return { cart, cartProducts };
+};
+
+const mapDispatch = dispatch => {
   return {
-    cartItems: state.cartItems
+    loadCart() {
+      dispatch(fetchCart());
+    }
   };
-}
+};
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapState, mapDispatch)(Cart);

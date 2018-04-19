@@ -18,7 +18,6 @@ class AllProducts extends Component{
 
         {products.map(product => (
             <div className="product" key={product.id}>
-            {console.log('product: ', product)}
               <Product product={product} />
               <button name={product.id} onClick={(e) => addButtonClick(e)}>Add to cart</button>
             </div>

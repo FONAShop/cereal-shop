@@ -27,7 +27,6 @@ class SingleProduct extends Component {
               <img src={productDetails.imgUrl} />
               <div>{'Title: ' + productDetails.name}</div>
               <div>{'Price: ' + productDetails.price}</div>
-              <div>{'Amount: ' + productDetails.quantity}</div>
               <div>{'Desc: ' + productDetails.description}</div>
             </div>
           )
