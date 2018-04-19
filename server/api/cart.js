@@ -15,7 +15,7 @@ router.put('/add', (req, res, next) => {
 router.put('/minus', (req, res, next) => {
   let cart = req.session.cart, { productId } = req.body;
   if (!cart[productId]) {
-    res.status(404).json('Product Not Found');
+    res.status(404).json('Product Not in Cart');
   } else {
     cart[productId] = (cart[productId] > 1) ? cart[productId] - 1 : 1;
     res.json({ [productId]: cart[productId] });
@@ -25,7 +25,7 @@ router.put('/minus', (req, res, next) => {
 router.put('/delete', (req, res, next) => {
   let cart = req.session.cart, { productId } = req.body;
   if (!cart[productId]) {
-    res.status(404).json('Product Not Found');
+    res.status(404).json('Product Not in Cart');
   } else {
     delete cart[productId];
     res.sendStatus(204);
