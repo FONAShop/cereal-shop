@@ -8,8 +8,6 @@ export default function Product({product}){
         <img src={product.imgUrl} />
         <div>{'Title: ' + product.name}</div>
         <div>{'Price: ' + product.price}</div>
-        <div>{'Amount: ' + product.quantity}</div>
-        <div>{'Desc: ' + product.description}</div>
       </Link>
 
   )
