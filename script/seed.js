@@ -37,7 +37,7 @@ async function seed() {
       description: "This should be a description",
       price: 500,
       quantity: 100,
-      img:
+      imgUrl:
         "http://images.kglobalservices.com/www.kelloggs.com/en_us/brand/consumerbrand-3440143/consbrand_img-3599289_applejacks.png",
       categories: []
     }),
@@ -46,7 +46,7 @@ async function seed() {
       description: "This should be a description",
       price: 500,
       quantity: 100,
-      img:
+      imgUrl:
         "https://www.frostedflakes.com/content/NorthAmerica/frostedflakes/en_US/pages/home/jcr:content/gridSystem/par/inuitgrid_1398179958/par/responsiveimage.img.png/1483464488956.png",
       categories: []
     }),
@@ -55,7 +55,7 @@ async function seed() {
       description: "This should be a description",
       price: 500,
       quantity: 100,
-      img:
+      imgUrl:
         "http://images.kglobalservices.com/www.kelloggs.com/en_us/product/product_4508489/kicproductimage-125783_cp_fp.jpg",
       categories: []
     }),
@@ -64,7 +64,7 @@ async function seed() {
       description: "This should be a description",
       price: 500,
       quantity: 100,
-      img:
+      imgUrl:
         "http://www.quakeroats.com/Sitefinity/WebsiteTemplates/Quaker/Images/Life_Orig.png",
       categories: []
     }),
@@ -73,7 +73,7 @@ async function seed() {
       description: "This should be a description",
       price: 500,
       quantity: 100,
-      img:
+      imgUrl:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNH6bm58fPUwfKu1LB_rWH38CD8ZE1oMqth7Srk5CF2PTs8v12j9V9xFo",
       categories: []
     })

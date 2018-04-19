@@ -8,35 +8,25 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
     <div className="navbar-container-outer">
       <div className="navbar-container">
-        <h1 className="h1">LORDS OF THE CEREALS</h1>
+      <NavLink to="/" ><h1 className="h1">LORDS OF THE CEREALS</h1></NavLink>
         <nav>
           {isLoggedIn ? (
             <div className="navbar-div">
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">Home</Link>
-              <a href="#" onClick={handleClick}>
-                Logout
-              </a>
+              <Link to="/home" activeClassName="selected">Home</Link>
+              <a href="#" onClick={handleClick}>Logout</a>
             </div>
           ) : (
             <div className="navbar-div">
               {/* The navbar will show these links before you log in */}
-              <NavLink to="/login">
-                Login
-              </NavLink>
-              <NavLink to="/signup">
-                Sign Up
-              </NavLink>
+              <NavLink to="/login" activeClassName="selected">Login</NavLink>
+              <NavLink to="/signup" activeClassName="selected">Sign Up</NavLink>
             </div>
           )}
         </nav>
       </div>
       <div className="filter-products-container">
-        <div>
-          <NavLink to="/" activeClassName="selected">
-            All Products:
-          </NavLink>
-        </div>
+        <div>Filter:</div>
         <input className="filter-products" />
       </div>
     </div>
