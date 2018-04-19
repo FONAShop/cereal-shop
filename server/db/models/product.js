@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require("sequelize");
+const db = require("../db");
 
-const Product = db.define('product', {
+const Product = db.define("product", {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -13,42 +13,42 @@ const Product = db.define('product', {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-        notEmpty: true,
-        min: 0
+      notEmpty: true,
+      min: 0,
+      isInt: true
     }
   },
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-        notEmpty: true,
-        min: 0
+      notEmpty: true,
+      min: 0
     }
   },
   imgUrl: {
     type: Sequelize.STRING,
-    defaultValue: 'https://c1.staticflickr.com/1/525/20123314076_fd18b5ede6_b.jpg'
+    defaultValue:
+      "https://c1.staticflickr.com/1/525/20123314076_fd18b5ede6_b.jpg"
   },
   categories: {
     type: Sequelize.ARRAY(Sequelize.STRING),
     defaultValue: [],
-    set: function (categories) {
+    set: function(categories) {
+      categories = categories || [];
 
-        categories = categories || [];
+      if (typeof categories === "string") {
+        categories = categories.split(",").map(function(str) {
+          return str.trim();
+        });
+      }
 
-        if (typeof categories === 'string') {
-            categories = categories.split(',').map(function (str) {
-                return str.trim();
-            });
-        }
-
-        this.setDataValue('categories', categories);
-
+      this.setDataValue("categories", categories);
     }
   }
-})
+});
 
 module.exports = Product;
