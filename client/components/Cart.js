@@ -3,12 +3,18 @@ import { connect } from 'react-redux';
 import { fetchCart, addProductToCart, minusFromCart, deleteProductFromCart } from '../store';
 
 class Cart extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     this.props.loadCart();
   }
 
+
+
   render() {
-    const { cart, cartProducts } = this.props;
+    const { cart, cartProducts, handleClickAdd } = this.props;
     console.log(cartProducts);
     if (!cartProducts) {
       return <div />;
@@ -21,9 +27,12 @@ class Cart extends Component {
               <div key={product.id}>
                 <img src={product.imgUrl} alt={product.name}/>
                 <span>{product.name}</span>
-                <span>{'Price: $' + product.price}</span>
-                <span>{'Quantity: ' + cart[product.id]}</span>
-                <span>{'Subtotal: ' + product.price * cart[product.id]}</span>
+                <span>{' Price: $' + product.price}</span>
+                <span> Quantity: </span>
+                <button>-</button>
+                <span>{cart[product.id]}</span>
+                <button name={product.id} onClick={handleClickAdd}>+</button>
+                <span>{' Subtotal: $' + product.price * cart[product.id]}</span>
               </div>
             ))
 
@@ -43,6 +52,10 @@ const mapDispatch = dispatch => {
   return {
     loadCart() {
       dispatch(fetchCart());
+    },
+    handleClickAdd(event) {
+      const productId = { productId: event.target.name };
+      dispatch(addProductToCart(productId));
     }
   };
 };
