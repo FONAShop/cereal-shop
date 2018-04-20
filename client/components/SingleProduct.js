@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { fetchProduct } from '../store/product';
+
+import { connect } from 'react-redux'
+import { addProductToCart } from '../store'
 
 class SingleProduct extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+  constructor(props){
+    super(props)
+    this.state = {}
   }
 
-  render() {
-    const productDetails = this.props.selectedProduct;
+  render(){
+    const productDetails = this.props.selectedProduct
+    const { addButtonClick } = this.props;
     return (
       <div>
-        {productDetails && (
-          <div key={productDetails.id}>
-            <img src={productDetails.imgUrl} />
-            <div>{'Title: ' + productDetails.name}</div>
-            <div>{'Price: ' + productDetails.price}</div>
-            <div>{'Desc: ' + productDetails.description}</div>
-          </div>
-        )}
+        { productDetails && (
+            <div key={productDetails.id}>
+              <img src={productDetails.imgUrl} />
+              <div>{'Title: ' + productDetails.name}</div>
+              <div>{'Price: ' + productDetails.price}</div>
+              <div>{'Desc: ' + productDetails.description}</div>
+              <button name={productDetails.id} onClick={(e) => addButtonClick(e)}>Add to cart</button>
+            </div>
+          )
+        }
+
       </div>
     );
   }
@@ -32,16 +37,16 @@ function mapStateToProps(state, ownProps) {
     product => product.id === paramId
   );
   return {
-    selectedProduct: selectedProduct,
-    allProducts: state.product.allProducts
-  };
+    selectedProduct,
+    allProducts: state.allProducts,
+  }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    loadSingleProduct: function() {
-      let productId = ownProps.match.params.id;
-      dispatch(fetchProduct(productId));
+    addButtonClick (event) {
+      const productId = {productId: event.target.name};
+      dispatch(addProductToCart(productId));
     }
   };
 }
