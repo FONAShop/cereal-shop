@@ -45,7 +45,8 @@ export function fetchCart () {
       .then(res => res.data)
       .then(cart => {
         dispatch(getCart(cart))
-      });
+      })
+      .catch(err => console.error(`Fetch cart unsuccessful`, err));
   }
 }
 
@@ -55,7 +56,8 @@ export function addProductToCart (productId) {
       .then(res => res.data)
       .then(addedProduct => {
         dispatch(addToCart(addedProduct));
-      });
+      })
+      .catch(err => console.error(`Add to cart unsuccessful`, err));
   }
 }
 
@@ -65,7 +67,8 @@ export function minusFromCart (productId) {
       .then(res => res.data)
       .then(subtractedProduct => {
         dispatch(minusOneFromCart(subtractedProduct));
-      });
+      })
+      .catch(err => console.error(`Minus from cart unsuccessful`, err));
   }
 }
 
@@ -75,7 +78,8 @@ export function deleteProductFromCart (productId) {
       .then(res => res.data)
       .then((deletedProduct) => {
         dispatch(deleteProdFromCart(deletedProduct.productId));
-      });
+      })
+      .catch(err => console.error(`Delete product from cart unsuccessful`, err));
   }
 }
 
