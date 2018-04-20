@@ -28,7 +28,8 @@ router.put('/delete', (req, res, next) => {
     res.status(404).json('Product Not in Cart');
   } else {
     delete cart[productId];
-    res.status(204).json({ productId });
+    console.log('cart----', cart);
+    res.json(cart);
   }
 });
 

@@ -11,11 +11,8 @@ class Cart extends Component {
     this.props.loadCart();
   }
 
-
-
   render() {
-    const { cart, cartProducts, handleClickAdd } = this.props;
-    console.log(cartProducts);
+    const { cart, cartProducts, handleClickAdd, handleClickMinus, handleClickDelete } = this.props;
     if (!cartProducts) {
       return <div />;
     } else if (cartProducts.length < 1) {
@@ -29,10 +26,11 @@ class Cart extends Component {
                 <span>{product.name}</span>
                 <span>{' Price: $' + product.price}</span>
                 <span> Quantity: </span>
-                <button>-</button>
+                <button name={product.id} onClick={handleClickMinus}>-</button>
                 <span>{cart[product.id]}</span>
                 <button name={product.id} onClick={handleClickAdd}>+</button>
                 <span>{' Subtotal: $' + product.price * cart[product.id]}</span>
+                <button name={product.id} onClick={handleClickDelete}>x</button>
               </div>
             ))
 
@@ -56,6 +54,14 @@ const mapDispatch = dispatch => {
     handleClickAdd(event) {
       const productId = { productId: event.target.name };
       dispatch(addProductToCart(productId));
+    },
+    handleClickMinus(event) {
+      const productId = { productId: event.target.name };
+      dispatch(minusFromCart(productId));
+    },
+    handleClickDelete(event) {
+      const productId = { productId: event.target.name };
+      dispatch(deleteProductFromCart(productId));
     }
   };
 };

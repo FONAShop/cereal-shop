@@ -31,10 +31,10 @@ export function minusOneFromCart (product) {
   }
 }
 
-export function deleteProdFromCart (productId) {
+export function deleteProdFromCart (cart) {
   return {
     type: DELETE_PRODUCT_FROM_CART,
-    productId
+    cart
   }
 }
 
@@ -73,8 +73,8 @@ export function deleteProductFromCart (productId) {
   return function thunk (dispatch) {
     return axios.put('/api/cart/delete', productId)
       .then(res => res.data)
-      .then((deletedProduct) => {
-        dispatch(deleteProdFromCart(deletedProduct.productId));
+      .then(cart => {
+        dispatch(deleteProdFromCart(cart));
       });
   }
 }
@@ -98,8 +98,7 @@ export default function reducer (state = initialState, action) {
       }
 
     case DELETE_PRODUCT_FROM_CART:
-      delete state[action.productId];
-      return state;
+      return action.cart;
 
     default:
       return state;
