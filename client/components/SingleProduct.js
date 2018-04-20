@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { fetchProduct } from '../store/product'
-
-//get data for single product
-//render a view for product information
-//render a view for reviews
+import { addProductToCart } from '../store'
 
 class SingleProduct extends Component {
   constructor(props){
@@ -13,13 +9,9 @@ class SingleProduct extends Component {
     this.state = {}
   }
 
-  componentDidMount(){
-    // this.props.loadSingleProduct()
-  }
-
-
   render(){
     const productDetails = this.props.selectedProduct
+    const { addButtonClick } = this.props;
     return (
       <div>
         { productDetails && (
@@ -28,6 +20,7 @@ class SingleProduct extends Component {
               <div>{'Title: ' + productDetails.name}</div>
               <div>{'Price: ' + productDetails.price}</div>
               <div>{'Desc: ' + productDetails.description}</div>
+              <button name={productDetails.id} onClick={(e) => addButtonClick(e)}>Add to cart</button>
             </div>
           )
         }
@@ -42,15 +35,14 @@ function mapStateToProps(state, ownProps){
   return {
     selectedProduct,
     allProducts: state.allProducts,
-    // selectedProduct: state.selectedProduct
   }
 }
 
 function mapDispatchToProps(dispatch, ownProps){
   return {
-    loadSingleProduct: function(){
-      let productId = ownProps.match.params.id
-      dispatch(fetchProduct(productId))
+    addButtonClick (event) {
+      const productId = {productId: event.target.name};
+      dispatch(addProductToCart(productId));
     }
   }
 }
