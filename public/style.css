@@ -55,12 +55,14 @@ form div {
   display: flex;
   justify-content: end;
   border: 1px solid rgb(0, 68, 255);
+  border-radius: 5px;
 }
 
 .filter-products-container {
   width: 100%;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .filter-products {

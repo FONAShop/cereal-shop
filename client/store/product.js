@@ -5,14 +5,16 @@ import axios from 'axios';
  */
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 const GET_PRODUCT = 'GET_PRODUCT';
+const GOT_NEW_SEARCH_ENTRY = 'GOT_NEW_SEARCH_ENTRY';
 
 /**
  * INITIAL STATE
  */
 const initialState = {
   allProducts: [],
-  selectedProduct: {}
-}
+  selectedProduct: {},
+  searchEntry: ''
+};
 
 /**
  * ACTION CREATORS
@@ -25,6 +27,11 @@ const getAllProducts = allProducts => ({
 const getProduct = selectedProduct => ({
   type: GET_PRODUCT,
   selectedProduct
+});
+
+export const gotNewSearchEntry = searchEntry => ({
+  type: GOT_NEW_SEARCH_ENTRY,
+  searchEntry
 });
 
 /**
@@ -51,12 +58,19 @@ export const fetchProduct = productId => dispatch => {
 /**
  * REDUCER
  */
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
+  
   switch (action.type) {
+    
     case GET_ALL_PRODUCTS:
-      return {allProducts: action.allProducts};
+      return { ...state, allProducts: action.allProducts };
+
     case GET_PRODUCT:
-      return Object.assign(...state, {selectedProduct: action.selectedProduct})
+      return { ...state, selectedProduct: action.selectedProduct };
+
+    case GOT_NEW_SEARCH_ENTRY:
+      return { ...state, searchEntry: action.searchEntry };
+
     default:
       return state;
   }
