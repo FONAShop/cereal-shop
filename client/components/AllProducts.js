@@ -13,7 +13,7 @@ class AllProducts extends Component {
     // let products = this.props.filteredProducts;
     const all = this.props.allProducts;
     const filtered = this.props.filteredProducts;
-    let products = filtered.length ? filtered : all;
+    let products = filtered.length ? filtered : null;
 
     console.log("======== items:", products);
 
