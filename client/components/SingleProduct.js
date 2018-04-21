@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux'
 import { addProductToCart } from '../store'
 
@@ -24,28 +25,30 @@ class SingleProduct extends Component {
             </div>
           )
         }
+
       </div>
-    )
+    );
   }
 }
 
-function mapStateToProps(state, ownProps){
+function mapStateToProps(state, ownProps) {
   const paramId = Number(ownProps.match.params.id);
-  const selectedProduct = state.product.allProducts.find(product => product.id === paramId);
+  const selectedProduct = state.product.allProducts.find(
+    product => product.id === paramId
+  );
   return {
     selectedProduct,
     allProducts: state.allProducts,
   }
 }
 
-function mapDispatchToProps(dispatch, ownProps){
+function mapDispatchToProps(dispatch, ownProps) {
   return {
     addButtonClick (event) {
       const productId = {productId: event.target.name};
       dispatch(addProductToCart(productId));
     }
-  }
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)
-
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
