@@ -1,48 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Product from './Product';
 import { addProductToCart } from '../store';
 
-class AllProducts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+//================================= DUMB COMPONENT ===========================//
 
-  render() {
-    // let products = this.props.filteredProducts;
-    const all = this.props.allProducts;
-    const filtered = this.props.filteredProducts;
-    let products = filtered.length ? filtered : null;
+function AllProducts({ allProducts, filteredProducts, addButtonClick }) {
+  let products = filteredProducts;
+  let products = allProducts;
 
-    console.log("======== items:", products);
+  console.log('========= AllProducts: ', products);
 
-    const { addButtonClick } = this.props;
-    return (
-      <div className="all-products">
-        {products &&
-          products.map(product => {
-            return (
-              <div className="product" key={product.id}>
-                <Product product={product} />
-                <button name={product.id} onClick={e => addButtonClick(e)}>
-                  Add to cart
-                </button>
-              </div>
-            );
-          })}
-      </div>
-    );
-  }
+  return (
+    <div className="all-products">
+      {products &&
+        products.map(product => {
+          return (
+            <div className="product" key={product.id}>
+              <Product product={product} />
+              <button name={product.id} onClick={e => addButtonClick(e)}>
+                Add to cart
+              </button>
+            </div>
+          );
+        })}
+    </div>
+  );
 }
 
+//============================== CONTAINER COMPONENT ===========================//
+
 const mapStateToProps = state => {
-  const filtered = state.product.filteredProducts.length ?
-    state.product.filteredProducts : state.product.allProducts;
-  return { 
+  const allProducts = state.product.allProducts;
+  const entry = state.product.searchEntry;
+  const filteredProducts = allProducts.filter(
+    product => product.name.toUpperCase().indexOf(entry.toUpperCase()) != -1
+  );
+  return {
     allProducts: state.product.allProducts,
-    // filteredProducts: state.product.filteredProducts,
-    filteredProducts: filtered
+    filteredProducts
   };
 };
 

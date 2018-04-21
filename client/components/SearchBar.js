@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React from 'react';
 import { connect } from 'react-redux';
-import { filterProducts, findItem } from '../store';
+import { gotNewSearchEntry } from '../store';
 
-const SearchBar = ({ handleChange, handleSubmit }) => (
-  <form className="filter-products-container" onSubmit={handleSubmit}>
+//================================= DUMB COMPONENT ===========================//
+
+const SearchBar = ({ handleChange }) => (
+  <form className="filter-products-container">
     <div>Filter:</div>
     <input
       className="filter-products"
@@ -12,34 +13,18 @@ const SearchBar = ({ handleChange, handleSubmit }) => (
       onChange={handleChange}
       type="text"
     />
-    <button className="navbar-div" type="submit">
-      Go!
-    </button>
   </form>
 );
 
-/**
- * CONTAINER
- */
-const mapStateToProps = state => {
-  return {
-    allProducts: state.product.allProducts,
-    filteredProducts: state.product.filteredProducts
-  };
-};
+//============================== CONTAINER COMPONENT ===========================//
 
 const mapDispatchToProps = dispatch => {
   return {
     handleChange(ev) {
       const newEntry = ev.target.value;
-      dispatch(filterProducts(newEntry));
-    },
-    handleSubmit(ev) {
-      ev.preventDefault();
-      const found = ev.target.filter.value;
-      dispatch(findItem(found));
+      dispatch(gotNewSearchEntry(newEntry));
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default connect(null, mapDispatchToProps)(SearchBar);
