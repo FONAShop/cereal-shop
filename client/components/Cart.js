@@ -24,7 +24,7 @@ class Cart extends Component {
           { cartProducts.map(product => (
               <div key={product.id}>
                 <Link to={`product/${product.id}`}>
-                  <img src={product.imgUrl} alt={product.name}/>
+                  <img src={product.imgUrl} alt={product.name} />
                 </Link>
                 <Link to={`product/${product.id}`}>{product.name}</Link>
                 <span>{' Price: $' + product.price}</span>
