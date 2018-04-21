@@ -1,9 +1,26 @@
 const router = require('express').Router()
+const { Cart, CartProduct } = require('../db/models')
 
 router.get('/', (req, res, next) => {
-  // fetch the cart object from the session store
-  // let cart = (typeof req.session.cart === 'undefined') ? {} : req.session.cart;
-  res.json(req.session.cart);
+  if (req.user !== undefined){ // if user is logged in
+    Cart.findOne({ where: { userId: req.user.id }})
+    .then(cartInDB => {
+      if (cartInDB) { //if a previous cart was saved in DB
+        CartProduct.findAll({where: {cartId: cartInDB.id }})
+        .then(foundProductsInDB => { //previous cart had contents
+          foundProductsInDB.forEach(productInCart => { // add previous content into current session.cart
+            req.session.cart[productInCart.productId] = productInCart.quantity
+          })
+        })
+        .catch(next)
+      } else {
+        res.json(req.session.cart)
+      }
+    })
+    .catch(next)
+  } else {
+    res.json(req.session.cart);
+  }
 });
 
 router.put('/add', (req, res, next) => {
