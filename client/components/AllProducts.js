@@ -5,12 +5,7 @@ import { addProductToCart } from '../store';
 
 //================================= DUMB COMPONENT ===========================//
 
-function AllProducts({ allProducts, filteredProducts, addButtonClick }) {
-  let products = filteredProducts;
-  let products = allProducts;
-
-  console.log('========= AllProducts: ', products);
-
+function AllProducts({ products, addButtonClick }) {
   return (
     <div className="all-products">
       {products &&
@@ -37,8 +32,7 @@ const mapStateToProps = state => {
     product => product.name.toUpperCase().indexOf(entry.toUpperCase()) != -1
   );
   return {
-    allProducts: state.product.allProducts,
-    filteredProducts
+    products: filteredProducts
   };
 };
 
