@@ -27,6 +27,7 @@ router.post('/add', (req, res, next) => {
           })
           .catch(next);
       }
+      req.session.cart = {};
       res.json(order);
     })
     .catch(next);
