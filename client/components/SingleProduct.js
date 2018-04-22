@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import Reviews from './Reviews';
 
 import { connect } from 'react-redux'
 import { addProductToCart } from '../store'
@@ -22,10 +22,10 @@ class SingleProduct extends Component {
               <div>{'Price: ' + productDetails.price}</div>
               <div>{'Desc: ' + productDetails.description}</div>
               <button name={productDetails.id} onClick={(e) => addButtonClick(e)}>Add to cart</button>
+            <Reviews product={productDetails.id} />
             </div>
           )
         }
-
       </div>
     );
   }
