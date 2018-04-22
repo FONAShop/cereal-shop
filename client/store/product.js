@@ -59,9 +59,9 @@ export const fetchProduct = productId => dispatch => {
  * REDUCER
  */
 export default function (state = initialState, action) {
-  
+
   switch (action.type) {
-    
+
     case GET_ALL_PRODUCTS:
       return { ...state, allProducts: action.allProducts };
 
