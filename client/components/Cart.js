@@ -40,7 +40,7 @@ class Cart extends Component {
           }
           <hr />
           <p>Total: ${this.getTotal()}</p>
-          <Link to={'checkout'}>Checkout</Link>
+          <Link to={'/checkout'}>Checkout</Link>
         </div>
       );
     }
