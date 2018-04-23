@@ -10,7 +10,8 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db');
-const { User, Product } = require('../server/db/models');
+
+const { User, Product, Review } = require('../server/db/models');
 
 async function seed() {
   await db.sync({ force: true });
@@ -79,6 +80,39 @@ async function seed() {
     })
   ]);
   console.log(`seeded ${products.length} products`);
+
+  const reviews = await Promise.all([
+    Review.create({
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillu',
+      rating: 5
+    }).then(createdReview => {
+      createdReview.setUser(1);
+      createdReview.setProduct(3);
+      }),
+    Review.create({
+      rating: 4
+    }).then(createdReview => {
+      createdReview.setUser(3);
+      createdReview.setProduct(5);
+      }),
+    Review.create({
+      rating: 1
+    }).then(createdReview => {
+      createdReview.setUser(2);
+      createdReview.setProduct(3);
+      }),
+    Review.create({
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+      rating: 3
+    }).then(createdReview => {
+      createdReview.setUser(5);
+      createdReview.setProduct(1);
+      }),
+
+  ]);
+  console.log(`seeded ${reviews.length} reviews`);
+
+
   console.log(`seeded successfully`);
 }
 

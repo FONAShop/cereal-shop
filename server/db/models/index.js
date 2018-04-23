@@ -1,10 +1,10 @@
-const User = require("./user");
-const Product = require("./product");
-const Review = require("./review");
-const Order = require("./order");
-const OrderProduct = require("./orderProduct");
-const db = require("../db");
-const Sequelize = require("sequelize");
+const User = require('./user');
+const Product = require('./product');
+const Review = require('./review');
+const Order = require('./order');
+const OrderProduct = require('./orderProduct');
+const db = require('../db');
+const Sequelize = require('sequelize');
 
 //Associations
 Order.belongsToMany(Product, { through: OrderProduct });
