@@ -49,13 +49,12 @@ router.post('/logout', (req, res, next) => {
       for (let productId in sessionCart){
         Product.findById(productId)
         .then(productInStock => { //finds the correct product instance
-
           newCart.addProducts(productInStock, { //adds a row to through table
             through: { //updates attribute on through table
               quantity: sessionCart[productId]
             }
           })
-          .then( () => console.log('created a row!'))
+          .then( () => console.log('Saved product into database!'))
         })
         .catch(next);
       }
