@@ -33,12 +33,13 @@ export function fetchOrders () {
   }
 }
 
-export function addOrder (order) {
+export function addOrder (order, history) {
   return function thunk (dispatch) {
-    return axios.post('/api/checkout/add', order)
+    return axios.post('/api/checkout', order)
       .then(res => res.data)
       .then(addedOrder => {
         //dispatch(addToOrders(addedOrder));
+        history.push(`/home`);
       })
       .catch(err => console.error(`Add to orders unsuccessful`, err));
   }

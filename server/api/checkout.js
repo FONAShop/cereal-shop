@@ -1,34 +1,35 @@
 const router = require('express').Router()
 const { Order, OrderProduct, User, Product } = require('../db/models')
+const Promise = require('bluebird');
 module.exports = router;
 /* eslint-disable guard-for-in*/
 
-router.get('/', (req, res, next) => {
-
-});
-
-router.post('/add', (req, res, next) => {
-  return Order.create({
-    status: 'Submitted'
-  })
-    .then(order => {
+router.post('/', (req, res, next) => {
+  return Order.create({ status: 'Submitted'})
+    .tap(order => {
       if (!req.user) {
         req.user = { id: null };
       }
-      order.setUser(req.user.id);
-      for (let productId in req.session.cart) {
-        Product.findById(productId)
-          .then(product => {
-            order.addProduct(product, {
+      return order.setUser(req.user.id); //this returns a promise?
+    })
+    .then((order) => {
+      const productIdArr = Object.keys(req.session.cart);
+      return Promise.map(productIdArr, productId => {
+        return Product.findById(productId)
+      })
+        .then(products => {
+          return Promise.map(products, product => {
+            return order.addProduct(product, {
               through: {
-                quantity: req.session.cart[productId]
+                quantity: req.session.cart[product.id]
               }
-            });
+            })
           })
-          .catch(next);
-      }
-      req.session.cart = {};
-      res.json(order);
+          .then(() => {
+            req.session.cart = {};
+            res.json(order);
+          })
+        })
     })
     .catch(next);
-});
+})

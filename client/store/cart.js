@@ -44,7 +44,6 @@ export function fetchCart () {
     return axios.get('/api/cart')
       .then(res => res.data)
       .then(cart => {
-        console.log(`cart`, cart);
         dispatch(getCart(cart))
       })
       .catch(err => console.error(`Fetch cart unsuccessful`, err));

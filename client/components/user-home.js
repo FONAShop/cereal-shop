@@ -1,30 +1,46 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import { fetchCart } from '../store';
 
 /**
  * COMPONENT
  */
-export const UserHome = (props) => {
-  const {email} = props
+export class UserHome extends React.Component {
 
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
-  )
+  componentDidMount () {
+    this.props.loadCart();
+  }
+
+  render () {
+    const { email } = this.props;
+    return (
+      <div>
+        <h3>Welcome, {email}</h3>
+      </div>
+    )
+  }
+
 }
 
 /**
  * CONTAINER
  */
-const mapState = (state) => {
+const mapStateToProps = (state) => {
   return {
     email: state.user.email
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadCart () {
+      dispatch(fetchCart());
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserHome)
 
 /**
  * PROP TYPES
