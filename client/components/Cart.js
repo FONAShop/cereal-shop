@@ -32,7 +32,7 @@ class Cart extends Component {
                 <button name={product.id} onClick={handleClickMinus}>-</button>
                 <span>{cart[product.id]}</span>
                 <button name={product.id} onClick={handleClickAdd}>+</button>
-                <span>{' Subtotal: $' + product.price * cart[product.id]}</span>
+                <span>{' Subtotal: $' + (product.price * cart[product.id]).toFixed(2)}</span>
                 <button name={product.id} onClick={handleClickDelete}>x</button>
               </div>
             ))

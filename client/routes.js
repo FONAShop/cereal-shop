@@ -11,7 +11,7 @@ import {
   SingleProduct,
   Checkout
 } from './components';
-import { me, fetchProducts } from './store';
+import { me, fetchProducts, fetchCart } from './store';
 
 /**
  * COMPONENT
@@ -63,6 +63,7 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me());
       dispatch(fetchProducts());
+      dispatch(fetchCart());
     }
   };
 };
