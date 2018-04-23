@@ -1,44 +1,48 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Product from './Product';
 import { addProductToCart } from '../store';
 
-class AllProducts extends Component{
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
+//================================= DUMB COMPONENT ===========================//
 
-  render(){
-    const products = this.props.allProducts;
-    const { addButtonClick } = this.props;
-    return (
-      <div className="all-products">
-
-        {products.map(product => (
+function AllProducts({ products, addButtonClick }) {
+  return (
+    <div className="all-products">
+      {products &&
+        products.map(product => {
+          return (
             <div className="product" key={product.id}>
               <Product product={product} />
-              <button name={product.id} onClick={(e) => addButtonClick(e)}>Add to cart</button>
+              <button name={product.id} onClick={e => addButtonClick(e)}>
+                Add to cart
+              </button>
             </div>
-          ))}
-      </div>
-    );
-  }
+          );
+        })}
+    </div>
+  );
 }
 
+//============================== CONTAINER COMPONENT ===========================//
+
 const mapStateToProps = state => {
+  const allProducts = state.product.allProducts;
+  const entry = state.product.searchEntry;
+  const filteredProducts = allProducts.filter(
+    product => product.name.toUpperCase().indexOf(entry.toUpperCase()) != -1
+  );
   return {
-    allProducts: state.product.allProducts
+    products: filteredProducts
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    addButtonClick (event) {
-      const productId = {productId: event.target.name};
+    addButtonClick(event) {
+      const productId = { productId: event.target.name };
       dispatch(addProductToCart(productId));
     }
-  }
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);
