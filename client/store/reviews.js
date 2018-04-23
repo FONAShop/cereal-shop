@@ -5,17 +5,17 @@ const GET_REVIEWS = 'GET_REVIEWS'
 // const REMOVE_USER = 'REMOVE_USER'
 
 //INITIAL STATE { }
-const initialState = {}
+const initialState = [];
 
 //ACTION CREATORS
-const getReviews = reviews => ({type: GET_REVIEWS, reviews})
+const getProductReviews = reviews => ({type: GET_REVIEWS, reviews})
 // const removeUser = () => ({type: REMOVE_USER})
 
 //THUNK CREATORS
-export const fetchReviews = productId => dispatch =>
-    axios.get(`/api/products/${productId}/reviews`)
+export const fetchProductReviews = productId => dispatch =>
+    axios.get(`/api/reviews/products/${productId}`)
       .then(res =>
-        dispatch(getReviews(res.data)))
+        dispatch(getProductReviews(res.data)))
       .catch(err => console.log(err))
 
 //REDUCER

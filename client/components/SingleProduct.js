@@ -22,7 +22,7 @@ class SingleProduct extends Component {
               <div>{'Price: ' + productDetails.price}</div>
               <div>{'Desc: ' + productDetails.description}</div>
               <button name={productDetails.id} onClick={(e) => addButtonClick(e)}>Add to cart</button>
-            <Reviews product={productDetails.id} />
+            <Reviews productId={productDetails.id} />
             </div>
           )
         }
