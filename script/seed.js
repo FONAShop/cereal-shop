@@ -10,6 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db');
+
 const { User, Product, Review } = require('../server/db/models');
 
 async function seed() {
@@ -35,7 +36,7 @@ async function seed() {
     Product.create({
       name: 'Apple Jacks',
       description: 'This should be a description',
-      price: 500,
+      price: 5.06,
       quantity: 100,
       imgUrl:
         'http://images.kglobalservices.com/www.kelloggs.com/en_us/brand/consumerbrand-3440143/consbrand_img-3599289_applejacks.png',
@@ -44,7 +45,7 @@ async function seed() {
     Product.create({
       name: 'Frosted Flakes',
       description: 'This should be a description',
-      price: 500,
+      price: 6.09,
       quantity: 100,
       imgUrl:
         'https://www.frostedflakes.com/content/NorthAmerica/frostedflakes/en_US/pages/home/jcr:content/gridSystem/par/inuitgrid_1398179958/par/responsiveimage.img.png/1483464488956.png',
@@ -53,7 +54,7 @@ async function seed() {
     Product.create({
       name: 'Pops',
       description: 'This should be a description',
-      price: 500,
+      price: 7.90,
       quantity: 100,
       imgUrl:
         'http://images.kglobalservices.com/www.kelloggs.com/en_us/product/product_4508489/kicproductimage-125783_cp_fp.jpg',
@@ -62,7 +63,7 @@ async function seed() {
     Product.create({
       name: 'Life',
       description: 'This should be a description',
-      price: 500,
+      price: 5.00,
       quantity: 100,
       imgUrl:
         'http://www.quakeroats.com/Sitefinity/WebsiteTemplates/Quaker/Images/Life_Orig.png',
@@ -71,7 +72,7 @@ async function seed() {
     Product.create({
       name: 'Raisin Bran',
       description: 'This should be a description',
-      price: 500,
+      price: 8.36,
       quantity: 100,
       imgUrl:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNH6bm58fPUwfKu1LB_rWH38CD8ZE1oMqth7Srk5CF2PTs8v12j9V9xFo',

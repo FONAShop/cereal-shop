@@ -19,6 +19,14 @@ const Product = db.define('product', {
       notEmpty: true,
       min: 0,
       isInt: true
+    },
+    get() {
+      const price = this.getDataValue('price').toString().trim();
+      const realPrice = price.slice(0, -2) + '.' + price.slice(-2);
+      return parseFloat(realPrice).toFixed(2);
+    },
+    set(price) {
+      this.setDataValue('price', Math.round(price * 100));
     }
   },
   quantity: {

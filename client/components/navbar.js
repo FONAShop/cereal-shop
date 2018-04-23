@@ -5,7 +5,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { logout } from '../store';
 import SearchBar from './SearchBar';
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, numOfItems }) => (
   <div>
     <div className="navbar-container-outer">
       <div className="navbar-container">
@@ -42,6 +42,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             width="50"
             name="cart"
           />
+          <span>{numOfItems}</span>
         </NavLink>
       </div>
       <SearchBar />
@@ -55,7 +56,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    numOfItems: Object.values(state.cart).reduce((total, quantity) => total + quantity, 0)
   };
 };
 

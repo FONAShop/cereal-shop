@@ -7,7 +7,7 @@ export default function Product({product}){
       <Link to={`product/${product.id}`}>
         <img src={product.imgUrl} />
         <div>{'Title: ' + product.name}</div>
-        <div>{'Price: ' + product.price}</div>
+        <div>{'Price: $' + product.price}</div>
       </Link>
 
   )
