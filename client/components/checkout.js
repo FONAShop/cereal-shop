@@ -63,7 +63,7 @@ const mapStateToProps = ({ cart, product, user }) => {
   return { cart, cartProducts, user };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadCart() {
       dispatch(fetchCart());
@@ -75,7 +75,7 @@ const mapDispatchToProps = dispatch => {
         email: evt.target.email.value,
         userId: evt.target.name
       };
-      dispatch(addOrder(objPayload));
+      dispatch(addOrder(objPayload, ownProps.history));
     }
   };
 }
