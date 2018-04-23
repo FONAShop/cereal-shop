@@ -24,7 +24,7 @@ class Cart extends Component {
           { cartProducts.map(product => (
               <div key={product.id}>
                 <Link to={`product/${product.id}`}>
-                  <img src={product.imgUrl} alt={product.name}/>
+                  <img src={product.imgUrl} alt={product.name} />
                 </Link>
                 <Link to={`product/${product.id}`}>{product.name}</Link>
                 <span>{' Price: $' + product.price}</span>
@@ -32,7 +32,7 @@ class Cart extends Component {
                 <button name={product.id} onClick={handleClickMinus}>-</button>
                 <span>{cart[product.id]}</span>
                 <button name={product.id} onClick={handleClickAdd}>+</button>
-                <span>{' Subtotal: $' + product.price * cart[product.id]}</span>
+                <span>{' Subtotal: $' + (product.price * cart[product.id]).toFixed(2)}</span>
                 <button name={product.id} onClick={handleClickDelete}>x</button>
               </div>
             ))
@@ -47,7 +47,7 @@ class Cart extends Component {
   }
 
   getTotal(cartProducts, cart) {
-    return cartProducts.reduce((subtotal, product) => subtotal + product.price * cart[product.id],0);
+    return (cartProducts.reduce((subtotal, product) => subtotal + product.price * cart[product.id],0)).toFixed(2);
   }
 }
 
