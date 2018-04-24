@@ -1,38 +1,87 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//Are we simulating checkout or using stripe?
+import { fetchCart, addOrder } from '../store';
+import { Link } from 'react-router-dom';
+/*eslint-disable react/prefer-stateless-function */
 
-const checkout = (props) => {
-  const { handleSubmit } = props;
-  return (
-    <div>
-      <form onSubmit={handleSubmit} name="checkout">
+class checkout extends Component {
+  constructor (props) {
+    super(props);
+  }
+
+  componentDidMount () {
+    this.props.loadCart();
+  }
+  render () {
+    const { handleSubmit, cart, cartProducts, user } = this.props;
+    if (!cartProducts) {
+      return <div />;
+    } else if (cartProducts.length < 1) {
+      return <p>Your cart is empty.</p>
+    } else {
+      return (
         <div>
-          <label htmlFor="shipping-address"><small>Shipping Address</small></label>
-          <input name="shipping-address" type="text" />
+          <form onSubmit={handleSubmit} name={user.id}>
+            <div>
+              <label htmlFor="shippingAddress"><small>Shipping Address</small></label>
+              <input name="shippingAddress" type="text" />
+            </div>
+            <div>
+              <label htmlFor="email"><small>Email</small></label>
+              <input name="email" type="text" />
+            </div>
+            <div>
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+          <div>
+            {
+              cartProducts.map(product => (
+                <div key={product.id}>
+                  <Link to={`product/${product.id}`}>
+                    <img src={product.imgUrl} alt={product.name} />
+                  </Link>
+                  <Link to={`product/${product.id}`}>{product.name}</Link>
+                  <span>{' Price: $' + product.price}</span>
+                  <span> Quantity: </span>
+                  <span>{cart[product.id]}</span>
+                  <span>{' Subtotal: $' + product.price * cart[product.id]}</span>
+                </div>
+              ))
+            }
+          <hr />
+          <p>Total: ${this.getTotal()}</p>
+          </div>
         </div>
-        <div>
-          <label htmlFor="email"><small>Email</small></label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
-  );
+      );
+    }
+  }
+
+  getTotal () {
+    const { cartProducts, cart } = this.props;
+    return (cartProducts.reduce((subtotal, product) => subtotal + product.price * cart[product.id], 0)).toFixed(2);
+  }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    //cart: state.cart
-  };
-}
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = ({ cart, product, user }) => {
+  const cartProducts = product.allProducts.filter(pt => cart.hasOwnProperty(pt.id));
+  return { cart, cartProducts, user };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    loadCart() {
+      dispatch(fetchCart());
+    },
     handleSubmit (evt) {
       evt.preventDefault();
+      const objPayload = {
+        status: 'Submitted',
+        shippingAddress: evt.target.shippingAddress.value,
+        email: evt.target.email.value,
+      };
+      dispatch(addOrder(objPayload, ownProps.history));
     }
   };
 }
