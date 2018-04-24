@@ -1,8 +1,6 @@
 const router = require('express').Router()
 
 router.get('/', (req, res, next) => {
-  // fetch the cart object from the session store
-  // let cart = (typeof req.session.cart === 'undefined') ? {} : req.session.cart;
   res.json(req.session.cart);
 });
 

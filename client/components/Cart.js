@@ -4,10 +4,6 @@ import { fetchCart, addProductToCart, minusFromCart, deleteProductFromCart } fro
 import { Link } from 'react-router-dom';
 
 class Cart extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.loadCart();
   }
