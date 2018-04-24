@@ -18,7 +18,7 @@ const initialState = {
 
 /**
  * ACTION CREATORS
- */
+ */ 
 const getAllProducts = allProducts => ({
   type: GET_ALL_PRODUCTS,
   allProducts
