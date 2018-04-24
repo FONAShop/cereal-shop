@@ -11,6 +11,8 @@ const sessionStore = new SequelizeStore({ db });
 const PORT = process.env.PORT || 8080;
 const app = express();
 const socketio = require('socket.io');
+const { Cart, CartProduct } = require('./db/models')
+
 module.exports = app;
 
 /**
@@ -51,15 +53,37 @@ const createApp = () => {
     saveUninitialized: false
   }))
 
+  app.use(passport.initialize())
+  app.use(passport.session()) //adds req.user
+
   app.use((req, res, next) => {
     if (!req.session.cart) {
       req.session.cart = {};
     }
-    next();
-  })
 
-  app.use(passport.initialize())
-  app.use(passport.session())
+    // if user is logged in
+    if (req.user !== undefined && !req.session.loadedPreviousCart){
+        Cart.findOne({ where: { userId: req.user.id }})
+        .then(cartInDB => {
+          if (cartInDB) {
+            return CartProduct.findAll({where: {cartId: cartInDB.id }})
+          }
+        })
+        // previous cart had contents
+        .then((foundProductsInDB) => {
+          if (foundProductsInDB){
+            foundProductsInDB.forEach(productInCart => { // add previous content into current session.cart
+              req.session.cart[productInCart.productId] = productInCart.quantity
+            })
+          }
+          req.session.loadedPreviousCart = true;
+        })
+        .then(next)
+        .catch(next)
+    } else {
+      next();
+    }
+  })
 
   // auth and api routes
   app.use('/auth', require('./auth'));

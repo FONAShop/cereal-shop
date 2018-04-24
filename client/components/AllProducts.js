@@ -29,7 +29,7 @@ const mapStateToProps = state => {
   const allProducts = state.product.allProducts;
   const entry = state.product.searchEntry;
   const filteredProducts = allProducts.filter(
-    product => product.name.toUpperCase().indexOf(entry.toUpperCase()) != -1
+    product => product.name.toUpperCase().indexOf(entry.toUpperCase()) !== -1
   );
   return {
     products: filteredProducts
