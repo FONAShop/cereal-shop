@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { fetchCart } from './cart';
+import toastr from 'toastr';
 
 //ACTION TYPES
 const GET_ORDERS = 'GET_ORDERS';
@@ -41,6 +42,7 @@ export function addOrder (order, history) {
       .then(addedOrder => {
         //dispatch(addToOrders(addedOrder));
         history.push(`/home`);
+        toastr.success('Order Placed Successfully', 'SUCCESS', { closeButton: true, closeDuration: 700, positionClass: 'toast-top-middle'});
         dispatch(fetchCart());
       })
       .catch(err => console.error(`Add to orders unsuccessful`, err));
