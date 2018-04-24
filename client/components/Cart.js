@@ -4,10 +4,6 @@ import { fetchCart, addProductToCart, minusFromCart, deleteProductFromCart } fro
 import { Link } from 'react-router-dom';
 
 class Cart extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.loadCart();
   }
@@ -39,15 +35,15 @@ class Cart extends Component {
 
           }
           <hr />
-          <p>Total: ${this.getTotal(cartProducts, cart)}</p>
+          <p>Total: ${this.getTotal()}</p>
           <Link to={'checkout'}>Checkout</Link>
         </div>
       );
     }
   }
 
-  getTotal(cartProducts, cart) {
-    return cartProducts.reduce((subtotal, product) => subtotal + product.price * cart[product.id], 0);
+  getTotal() {
+    return this.props.cartProducts.reduce((subtotal, product) => subtotal + product.price * this.props.cart[product.id], 0);
   }
 }
 

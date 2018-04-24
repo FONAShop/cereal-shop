@@ -62,24 +62,24 @@ const createApp = () => {
     }
 
     // if user is logged in
-    if (req.user !== undefined){
-      Cart.findOne({ where: { userId: req.user.id }})
-      .then(cartInDB => {
-        if (cartInDB) {
-          return CartProduct.findAll({where: {cartId: cartInDB.id }})
-        }
-      })
-      // previous cart had contents
-      .then((foundProductsInDB) => {
-        console.log('foundProductsInDB: ', foundProductsInDB);
-        if (foundProductsInDB){
-          foundProductsInDB.forEach(productInCart => { // add previous content into current session.cart
-            req.session.cart[productInCart.productId] = productInCart.quantity
-          })
-        }
-      })
-      .then(next)
-      .catch(next)
+    if (req.user !== undefined && !req.session.loadedPreviousCart){
+        Cart.findOne({ where: { userId: req.user.id }})
+        .then(cartInDB => {
+          if (cartInDB) {
+            return CartProduct.findAll({where: {cartId: cartInDB.id }})
+          }
+        })
+        // previous cart had contents
+        .then((foundProductsInDB) => {
+          if (foundProductsInDB){
+            foundProductsInDB.forEach(productInCart => { // add previous content into current session.cart
+              req.session.cart[productInCart.productId] = productInCart.quantity
+            })
+          }
+          req.session.loadedPreviousCart = true;
+        })
+        .then(next)
+        .catch(next)
     } else {
       next();
     }
