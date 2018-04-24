@@ -1,7 +1,6 @@
 const router = require('express').Router()
 
 router.get('/', (req, res, next) => {
-  console.log('req.session.cart at /api/cart: ', req.session.cart);
   res.json(req.session.cart);
 });
 
