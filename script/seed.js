@@ -84,7 +84,7 @@ async function seed() {
       price: 13.36,
       quantity: 100,
       imgUrl:
-        'https://www.mrbreakfast.com/images/p_326_kashi_cinnamon_french_toast.jpg',
+        'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTWGTcp-H0KTh44Di3wkBAcbhaJEWCxYuSK8v5BQ0wXfkl-m7pWmDIyJLlsbKnu-KkYjYAcUM1s94rIJsABeYSjpllvHUkLBOOLwJibaqC1Z2bg956pDJA9&usqp=CAE',
       categories: ['sweet', 'wheaty']
     }),
     Product.create({
