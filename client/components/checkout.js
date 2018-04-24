@@ -77,9 +77,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     handleSubmit (evt) {
       evt.preventDefault();
       const objPayload = {
+        status: 'Submitted',
         shippingAddress: evt.target.shippingAddress.value,
         email: evt.target.email.value,
-        userId: evt.target.name
       };
       dispatch(addOrder(objPayload, ownProps.history));
     }

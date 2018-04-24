@@ -5,7 +5,7 @@ module.exports = router;
 /* eslint-disable guard-for-in*/
 
 router.post('/', (req, res, next) => {
-  return Order.create({ status: 'Submitted'})
+  return Order.create(req.body)
     .tap(order => {
       if (!req.user) {
         req.user = { id: null };
