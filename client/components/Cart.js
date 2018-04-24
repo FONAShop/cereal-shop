@@ -36,14 +36,15 @@ class Cart extends Component {
           }
           <hr />
           <p>Total: ${this.getTotal()}</p>
-          <Link to={'checkout'}>Checkout</Link>
+          <Link to={'/checkout'}>Checkout</Link>
         </div>
       );
     }
   }
 
-  getTotal() {
-    return this.props.cartProducts.reduce((subtotal, product) => subtotal + product.price * this.props.cart[product.id], 0);
+  getTotal () {
+    const { cartProducts, cart } = this.props;
+    return (cartProducts.reduce((subtotal, product) => subtotal + product.price * cart[product.id], 0)).toFixed(2);
   }
 }
 

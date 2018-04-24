@@ -48,12 +48,18 @@ class checkout extends Component {
                   <span>{' Subtotal: $' + product.price * cart[product.id]}</span>
                 </div>
               ))
-
             }
+          <hr />
+          <p>Total: ${this.getTotal()}</p>
           </div>
         </div>
       );
     }
+  }
+
+  getTotal () {
+    const { cartProducts, cart } = this.props;
+    return (cartProducts.reduce((subtotal, product) => subtotal + product.price * cart[product.id], 0)).toFixed(2);
   }
 }
 
@@ -63,7 +69,7 @@ const mapStateToProps = ({ cart, product, user }) => {
   return { cart, cartProducts, user };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadCart() {
       dispatch(fetchCart());
@@ -75,7 +81,7 @@ const mapDispatchToProps = dispatch => {
         email: evt.target.email.value,
         userId: evt.target.name
       };
-      dispatch(addOrder(objPayload));
+      dispatch(addOrder(objPayload, ownProps.history));
     }
   };
 }
