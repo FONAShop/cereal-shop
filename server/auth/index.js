@@ -34,12 +34,14 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.post('/logout', (req, res, next) => {
+
   const logOutAndDeleteSession = function(){
     req.logout()
     req.session.destroy()
     res.redirect('/')
   }
   let sessionCart = req.session.cart
+  let productsToUpdate = [];
   if (Object.keys(sessionCart).length !== 0){
     Cart.findOrCreate({where: { userId: req.user.id}})
     .then(([newCart]) => {
@@ -47,17 +49,19 @@ router.post('/logout', (req, res, next) => {
       // separate out all the products from cart
       // loop over to add all the products and the quanitities
       for (let productId in sessionCart){
-        Product.findById(productId)
-        .then(productInStock => { //finds the correct product instance
-          newCart.addProducts(productInStock, { //adds a row to through table
+        productsToUpdate.push(Product.findById(productId))
+      }
+
+      Promise.all(productsToUpdate)
+      .then(productInStock => { //finds the correct product instance
+        productInStock.map(eachProduct => {
+          newCart.addProducts(eachProduct, { //adds a row to through table
             through: { //updates attribute on through table
-              quantity: sessionCart[productId]
+              quantity: sessionCart[eachProduct.id]
             }
           })
-          .then( () => console.log('Saved product into database!'))
         })
-        .catch(next);
-      }
+      })
     }).then(() => {
       logOutAndDeleteSession();
     })
