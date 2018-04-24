@@ -10,13 +10,13 @@ const Navbar = ({ handleClick, isLoggedIn, numOfItems }) => (
     <div className="navbar-container-outer">
       <div className="navbar-container">
         <NavLink to="/">
-          <h1 className="h1">LORDS OF THE CEREALS</h1>
+          <h1 className="h1">LORDS OF CEREAL</h1>
         </NavLink>
         <nav>
           {isLoggedIn ? (
             <div className="navbar-div">
               {/* The navbar will show these links after you log in */}
-              <Link to="/home" activeClassName="selected">
+              <Link to="/home">
                 Home
               </Link>
               <a href="#" onClick={handleClick}>
@@ -26,16 +26,16 @@ const Navbar = ({ handleClick, isLoggedIn, numOfItems }) => (
           ) : (
             <div className="navbar-div">
               {/* The navbar will show these links before you log in */}
-              <NavLink to="/login" activeClassName="selected">
+              <NavLink to="/login">
                 Login
               </NavLink>
-              <NavLink to="/signup" activeClassName="selected">
+              <NavLink to="/signup">
                 Sign Up
               </NavLink>
             </div>
           )}
         </nav>
-        <NavLink to="/cart" activeClassName="selected">
+        <NavLink to="/cart">
           <input
             type="image"
             src="http://www.clker.com/cliparts/0/y/N/C/g/c/shopping-cart-th.png"

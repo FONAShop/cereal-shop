@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fetchCart } from './cart';
 
 //ACTION TYPES
 const GET_ORDERS = 'GET_ORDERS';
@@ -40,6 +41,7 @@ export function addOrder (order, history) {
       .then(addedOrder => {
         //dispatch(addToOrders(addedOrder));
         history.push(`/home`);
+        dispatch(fetchCart());
       })
       .catch(err => console.error(`Add to orders unsuccessful`, err));
   }
