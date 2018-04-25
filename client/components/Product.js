@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { connect } from 'react-redux';
 import { addProductToCart } from '../store';
@@ -15,7 +16,6 @@ const Product = ({ product, addButtonClick }) => (
     </Card.Content>
   </Card>
 )
-
 
 const mapDispatch = dispatch => {
   return {

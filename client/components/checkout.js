@@ -6,10 +6,10 @@ import { Header, Button, Item, Image as ImageComponent, Segment, Form } from 'se
 /*eslint-disable react/prefer-stateless-function */
 
 class Checkout extends Component {
-
   componentDidMount () {
     this.props.loadCart();
   }
+
   render () {
     const { handleSubmit, cart, cartProducts, user } = this.props;
     if (!cartProducts) {
