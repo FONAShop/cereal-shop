@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Reviews from './Reviews';
 import { connect } from 'react-redux'
 import { addProductToCart } from '../store'
