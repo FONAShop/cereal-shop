@@ -1,31 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Product from './Product';
-import { addProductToCart } from '../store';
+import { Card } from 'semantic-ui-react';
 
 //================================= DUMB COMPONENT ===========================//
 
-function AllProducts({ products, addButtonClick }) {
+function AllProducts({ products }) {
   return (
-    <div className="all-products">
+    <Card.Group itemsPerRow={3}>
       {products &&
         products.map(product => {
           return (
-            <div className="product" key={product.id}>
+            <div key={product.id}>
               <Product product={product} />
-              <button name={product.id} onClick={e => addButtonClick(e)}>
-                Add to cart
-              </button>
             </div>
           );
         })}
-    </div>
+    </Card.Group>
   );
 }
 
 //============================== CONTAINER COMPONENT ===========================//
 
-const mapStateToProps = state => {
+const mapState = state => {
   const allProducts = state.product.allProducts;
   const entry = state.product.searchEntry;
   const filteredProducts = allProducts.filter(
@@ -36,13 +33,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    addButtonClick(event) {
-      const productId = { productId: event.target.name };
-      dispatch(addProductToCart(productId));
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);
+export default connect(mapState)(AllProducts);
