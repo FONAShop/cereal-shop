@@ -3,9 +3,9 @@ import axios from 'axios';
 /**
  * ACTION TYPES
  */
-const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
-const GET_PRODUCT = 'GET_PRODUCT';
-const GOT_NEW_SEARCH_ENTRY = 'GOT_NEW_SEARCH_ENTRY';
+export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
+export const GET_PRODUCT = 'GET_PRODUCT';
+export const GOT_NEW_SEARCH_ENTRY = 'GOT_NEW_SEARCH_ENTRY';
 
 /**
  * INITIAL STATE
@@ -19,12 +19,13 @@ const initialState = {
 /**
  * ACTION CREATORS
  */
-const getAllProducts = allProducts => ({
+
+export const getAllProducts = allProducts => ({
   type: GET_ALL_PRODUCTS,
   allProducts
 });
 
-const getProduct = selectedProduct => ({
+export const getProduct = selectedProduct => ({
   type: GET_PRODUCT,
   selectedProduct
 });
@@ -58,10 +59,8 @@ export const fetchProduct = productId => dispatch => {
 /**
  * REDUCER
  */
-export default function (state = initialState, action) {
-
+export default function(state = initialState, action) {
   switch (action.type) {
-
     case GET_ALL_PRODUCTS:
       return { ...state, allProducts: action.allProducts };
 
