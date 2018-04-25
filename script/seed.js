@@ -20,13 +20,13 @@ async function seed() {
   // executed until that promise resolves!
 
   const users = await Promise.all([
-    User.create({ email: 'cody@email.com', password: '123' }),
-    User.create({ email: 'murphy@email.com', password: '123' }),
-    User.create({ email: 'bernstein@email.com', password: '123' }),
-    User.create({ email: 'andventuree@email.com', password: '123' }),
-    User.create({ email: 'mils-1@email.com', password: '123' }),
-    User.create({ email: 'francesyw@email.com', password: '123' }),
-    User.create({ email: 'borysonok@email.com', password: '123' })
+    User.create({ isAdmin: true, email: 'cody@email.com', password: '123' }),
+    User.create({ isAdmin: false, email: 'murphy@email.com', password: '123' }),
+    User.create({ isAdmin: false, email: 'bernstein@email.com', password: '123' }),
+    User.create({ isAdmin: false, email: 'andventuree@email.com', password: '123' }),
+    User.create({ isAdmin: false, email: 'mils-1@email.com', password: '123' }),
+    User.create({ isAdmin: true, email: 'francesyw@email.com', password: '123' }),
+    User.create({ isAdmin: true, email: 'borysonok@email.com', password: '123' })
   ]);
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
@@ -35,7 +35,7 @@ async function seed() {
   const products = await Promise.all([
     Product.create({
       name: 'Apple Jacks',
-      description: 'This should be a description',
+      description: 'Apples, apples, apples.',
       price: 5.06,
       quantity: 100,
       imgUrl:
@@ -44,7 +44,7 @@ async function seed() {
     }),
     Product.create({
       name: 'Frosted Flakes',
-      description: 'This should be a description',
+      description: 'Lacks nutritional value. Do not eat.',
       price: 6.09,
       quantity: 100,
       imgUrl:
@@ -53,7 +53,7 @@ async function seed() {
     }),
     Product.create({
       name: 'Pops',
-      description: 'This should be a description',
+      description: 'Lacks nutritional value.',
       price: 7.90,
       quantity: 100,
       imgUrl:
@@ -62,7 +62,7 @@ async function seed() {
     }),
     Product.create({
       name: 'Life',
-      description: 'This should be a description',
+      description: 'Lacks nutritional value.',
       price: 5.00,
       quantity: 100,
       imgUrl:
@@ -70,49 +70,112 @@ async function seed() {
       categories: []
     }),
     Product.create({
-      name: 'Raisin Bran',
-      description: 'This should be a description',
-      price: 8.36,
+      name: 'Peach Cherrios',
+      description: 'Each 3/4 cup serving of Peach Cheerios has 110 calories, 1.5 grams total fat (0 saturated and 0 trans), 0 mg cholesterol, 125 mg sodium, 22 grams total carbs, 2 grams dietary fiber, 8 grams sugar and 2 grams protein.',
+      price: 7.46,
       quantity: 100,
       imgUrl:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNH6bm58fPUwfKu1LB_rWH38CD8ZE1oMqth7Srk5CF2PTs8v12j9V9xFo',
-      categories: []
+        'https://www.mrbreakfast.com/images/p_333_peach_cheerios_review.jpg',
+      categories: ['sweet']
+    }),
+    Product.create({
+      name: 'Kashi Cinnamon French Toast',
+      description: 'Each 3/4 cup serving of Kashi Cinnamon French Toast Cereal has 90 calories, 1.5 grams total fat (0 saturated and 0 trans), 0 mg cholesterol, 95 mg sodium, 23 grams total carbs, 5 grams dietary fiber, 6 grams sugar and 2 grams protein. ',
+      price: 13.36,
+      quantity: 100,
+      imgUrl:
+        'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTWGTcp-H0KTh44Di3wkBAcbhaJEWCxYuSK8v5BQ0wXfkl-m7pWmDIyJLlsbKnu-KkYjYAcUM1s94rIJsABeYSjpllvHUkLBOOLwJibaqC1Z2bg956pDJA9&usqp=CAE',
+      categories: ['sweet', 'wheaty']
+    }),
+    Product.create({
+      name: 'Honey Bunches of Oats Crunch Os',
+      description: 'Each serving of Almond Crunch Os has 130 calories, 2 grams total fat (0 saturated and 0 trans), 0mg cholesterol, 160mg sodium, 26 grams total carbs, 2 grams dietary fiber, 7 grams sugar and 2 grams protein. The first 4 ingredients listed on the side panel are corn, whole grain wheat, sugar and oat cereal.',
+      price: 5.60,
+      quantity: 100,
+      imgUrl:
+        'https://www.mrbreakfast.com/images/p_304.jpg',
+      categories: ['savory', 'wheaty']
+    }),
+    Product.create({
+      name: 'Chex Clusters',
+      description: 'Each 3/4 cup serving of Chex Clusters has 100 calories, 2 grams total fat (0 saturated and 0 trans), 0 mg cholesterol, 95 mg sodium, 23 grams total carbs, 5 grams dietary fiber, 6 grams sugar and 2 grams protein. ',
+      price: 11.42,
+      quantity: 100,
+      imgUrl:
+        'https://www.mrbreakfast.com/images/p_293.jpg',
+      categories: ['crunchy']
+    }),
+    Product.create({
+      name: 'Rice Krispies Treats Cereal',
+      description: 'Lacks nutritional value.',
+      price: 9.24,
+      quantity: 100,
+      imgUrl:
+        'https://www.mrbreakfast.com/images/p_6.jpg',
+      categories: ['sweet']
     })
   ]);
   console.log(`seeded ${products.length} products`);
 
   const reviews = await Promise.all([
     Review.create({
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillu',
+      content: 'Tastes like bacon.',
       rating: 5
-    }).then(createdReview => {
+      }).then(createdReview => {
       createdReview.setUser(1);
       createdReview.setProduct(3);
       }),
     Review.create({
+      content: 'Does not tastes like bacon.',
       rating: 4
-    }).then(createdReview => {
-      createdReview.setUser(3);
-      createdReview.setProduct(5);
+      }).then(createdReview => {
+      createdReview.setUser(4);
+      createdReview.setProduct(9);
       }),
     Review.create({
+      content: 'I like the crunch!',
       rating: 1
-    }).then(createdReview => {
+      }).then(createdReview => {
       createdReview.setUser(2);
+      createdReview.setProduct(7);
+      }),
+    Review.create({
+      content: 'Best way to start a morning.',
+      rating: 3
+      }).then(createdReview => {
+      createdReview.setUser(5);
+      createdReview.setProduct(9);
+      }),
+    Review.create({
+      content: 'Best way to start a morning.',
+      rating: 3
+      }).then(createdReview => {
+      createdReview.setUser(5);
+      createdReview.setProduct(6);
+      }),
+    Review.create({
+      content: 'Best way to start a morning.',
+      rating: 3
+      }).then(createdReview => {
+      createdReview.setUser(6);
       createdReview.setProduct(3);
       }),
     Review.create({
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+      content: 'Best way to start a morning.',
       rating: 3
-    }).then(createdReview => {
-      createdReview.setUser(5);
-      createdReview.setProduct(1);
+      }).then(createdReview => {
+      createdReview.setUser(6);
+      createdReview.setProduct(5);
       }),
-
+    Review.create({
+      content: 'Best way to start a morning.',
+      rating: 3
+      }).then(createdReview => {
+      createdReview.setUser(1);
+      createdReview.setProduct(1);
+      })
   ]);
   console.log(`seeded ${reviews.length} reviews`);
-
-
   console.log(`seeded successfully`);
 }
 
