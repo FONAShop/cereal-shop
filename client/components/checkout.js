@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCart, addOrder } from '../store';
-import { Link } from 'react-router-dom';
+import { Header, Button, Item, Image as ImageComponent, Segment, Form } from 'semantic-ui-react';
+
 /*eslint-disable react/prefer-stateless-function */
 
-class checkout extends Component {
-  constructor (props) {
-    super(props);
-  }
+class Checkout extends Component {
 
   componentDidMount () {
     this.props.loadCart();
@@ -17,41 +15,43 @@ class checkout extends Component {
     if (!cartProducts) {
       return <div />;
     } else if (cartProducts.length < 1) {
-      return <p>Your cart is empty.</p>
+      return <Header>Your cart is empty.</Header>
     } else {
       return (
         <div>
-          <form onSubmit={handleSubmit} name={user.id}>
-            <div>
-              <label htmlFor="shippingAddress"><small>Shipping Address</small></label>
-              <input name="shippingAddress" type="text" />
-            </div>
-            <div>
-              <label htmlFor="email"><small>Email</small></label>
-              <input name="email" type="text" />
-            </div>
-            <div>
-              <button type="submit">Submit</button>
-            </div>
-          </form>
-          <div>
+          <Item.Group divided>
             {
               cartProducts.map(product => (
-                <div key={product.id}>
-                  <Link to={`product/${product.id}`}>
-                    <img src={product.imgUrl} alt={product.name} />
-                  </Link>
-                  <Link to={`product/${product.id}`}>{product.name}</Link>
-                  <span>{' Price: $' + product.price}</span>
+                <Item key={product.id}>
+                  <Item.Image href={`product/${product.id}`} src={product.imgUrl} alt={product.name} style={{ marginRight: '3em'}} />
+                  <Item.Content>
+                  <Item.Header as="a" href={`product/${product.id}`}>{product.name}</Item.Header>
+                  <Item.Meta>
+                    <span>{' Price: $' + product.price}</span>
+                  </Item.Meta>
                   <span> Quantity: </span>
                   <span>{cart[product.id]}</span>
-                  <span>{' Subtotal: $' + product.price * cart[product.id].toFixed(2)}</span>
-                </div>
+                  <p>{' Subtotal: $' + product.price * cart[product.id].toFixed(2)}</p>
+                  </Item.Content>
+                </Item>
               ))
             }
-          <hr />
-          <p>Total: ${this.getTotal()}</p>
-          </div>
+          </Item.Group>
+          <Header>Total: ${this.getTotal()}</Header>
+
+          <Segment style={{ width: '70%', margin: '3em auto 8em' }}>
+          <Form onSubmit={handleSubmit} name={user.id}>
+            <Form.Field>
+              <label htmlFor="shippingAddress"><small>Shipping Address</small></label>
+              <input name="shippingAddress" type="text" />
+            </Form.Field>
+            <Form.Field>
+              <label htmlFor="email"><small>Email</small></label>
+              <input name="email" type="text" />
+            </Form.Field>
+              <Button type="submit">Submit</Button>
+          </Form>
+          </Segment>
         </div>
       );
     }
@@ -86,4 +86,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(checkout);
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

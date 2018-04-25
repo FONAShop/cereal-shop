@@ -23,7 +23,7 @@ class Reviews extends Component {
             </div>
           )
         })}
-        {isLoggedIn ? (
+        {isLoggedIn && (
           <Form name="productReview" onSubmit={evt => handleSubmit(userId, productId, newReviewEntry, evt)}>
             <Form.Field>
               <label>Rating: </label>
@@ -44,7 +44,7 @@ class Reviews extends Component {
             </Form.Field>
             <Button type="submit">Submit</Button>
           </Form>
-        ) : <div /> }
+        )}
       </div>
     )
   }

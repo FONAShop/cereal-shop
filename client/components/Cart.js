@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCart, addProductToCart, minusFromCart, deleteProductFromCart } from '../store';
 import { Link } from 'react-router-dom';
+import { Header, Button, Item, Image as ImageComponent } from 'semantic-ui-react';
 
 class Cart extends Component {
   componentDidMount() {
@@ -13,30 +14,33 @@ class Cart extends Component {
     if (!cartProducts) {
       return <div />;
     } else if (cartProducts.length < 1) {
-      return <p>Your cart is empty.</p>
+      return <Header>Your cart is empty.</Header>
     } else {
       return (
         <div>
-          { cartProducts.map(product => (
-              <div key={product.id}>
-                <Link to={`product/${product.id}`}>
-                  <img src={product.imgUrl} alt={product.name} />
-                </Link>
-                <Link to={`product/${product.id}`}>{product.name}</Link>
-                <span>{' Price: $' + product.price}</span>
-                <span> Quantity: </span>
-                <button name={product.id} onClick={handleClickMinus}>-</button>
-                <span>{cart[product.id]}</span>
-                <button name={product.id} onClick={handleClickAdd}>+</button>
-                <span>{' Subtotal: $' + (product.price * cart[product.id]).toFixed(2)}</span>
-                <button name={product.id} onClick={handleClickDelete}>x</button>
-              </div>
-            ))
+          <Item.Group divided>
+            { cartProducts.map(product => (
+                <Item key={product.id}>
+                  <Item.Image href={`product/${product.id}`} src={product.imgUrl} alt={product.name} style={{ marginRight: '3em'}} />
+                  <Item.Content>
+                    <Item.Header as="a" href={`product/${product.id}`}>{product.name}</Item.Header>
+                    <Item.Meta>
+                      <span>{'$' + product.price}</span>
+                    </Item.Meta>
+                    <span> Quantity: </span>
+                    <Button size="mini" circular name={product.id} onClick={handleClickMinus} style={{ padding: '0.4em 0.6em 0.6em', margin: '0em 0.3em'}}>-</Button>
+                    <span>{cart[product.id]}</span>
+                    <Button size="mini" circular name={product.id} onClick={handleClickAdd} style={{ padding: '0.4em 0.6em 0.6em', margin: '0em 0.3em'}}>+</Button>
+                    <p>{' Subtotal: $' + (product.price * cart[product.id]).toFixed(2)}</p>
+                    <Button size="mini" circular name={product.id} onClick={handleClickDelete} style={{ padding: '0.4em 0.6em 0.6em', margin: '0em 0.3em'}}>Delete</Button>
+                  </Item.Content>
+                </Item>
+              ))
 
-          }
-          <hr />
-          <p>Total: ${this.getTotal()}</p>
-          <Link to={'/checkout'}>Checkout</Link>
+            }
+          </Item.Group>
+          <Header>Total: ${this.getTotal()}</Header>
+          <Link to={'/checkout'}><Button>Checkout</Button></Link>
         </div>
       );
     }
