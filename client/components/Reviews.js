@@ -46,7 +46,7 @@ class Reviews extends Component {
               onChange={handleContent}
               placeholder="Write your review here..." />
             </Form.Field>
-            <button type="submit">Submit</button>
+            <Button type="submit">Submit</Button>
           </Form>
         ) : <div /> }
       </div>
