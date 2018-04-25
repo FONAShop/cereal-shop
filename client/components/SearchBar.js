@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { gotNewSearchEntry } from '../store';
+import { Input, Menu } from 'semantic-ui-react';
 
 const SearchBar = ({ handleChange }) => (
-  <form className="filter-products-container">
-    <div>Filter:</div>
-    <input
-      className="filter-products"
+  <Menu.Item position="right">
+    <Input
+      icon="search"
       name="filter"
       onChange={handleChange}
-      type="text"
+      placeholder="Search products..."
     />
-  </form>
+  </Menu.Item>
 );
 
 const mapDispatchToProps = dispatch => {

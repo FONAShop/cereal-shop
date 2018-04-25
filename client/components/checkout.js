@@ -42,7 +42,7 @@ class checkout extends Component {
                   <span>{' Price: $' + product.price}</span>
                   <span> Quantity: </span>
                   <span>{cart[product.id]}</span>
-                  <span>{' Subtotal: $' + product.price * cart[product.id]}</span>
+                  <span>{' Subtotal: $' + product.price * cart[product.id].toFixed(2)}</span>
                 </div>
               ))
             }

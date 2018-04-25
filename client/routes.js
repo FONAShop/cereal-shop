@@ -12,6 +12,7 @@ import {
   Checkout
 } from './components';
 import { me, fetchProducts, fetchCart } from './store';
+import { Container } from 'semantic-ui-react';
 
 /**
  * COMPONENT
@@ -25,6 +26,7 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
 
     return (
+      <Container style={{ marginTop: '7em' }}>
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/login" component={Login} />
@@ -43,6 +45,7 @@ class Routes extends Component {
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
+      </Container>
     );
   }
 }

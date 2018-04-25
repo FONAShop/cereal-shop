@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
-const { Cart, Product } = require('../db/models')
+const { Cart, Product, CartProduct } = require('../db/models')
 module.exports = router
 
 router.post('/login', (req, res, next) => {
@@ -34,7 +34,6 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.post('/logout', (req, res, next) => {
-
   const logOutAndDeleteSession = function(){
     req.logout()
     req.session.destroy()
@@ -42,12 +41,14 @@ router.post('/logout', (req, res, next) => {
   }
   let sessionCart = req.session.cart
   let productsToUpdate = [];
-  if (Object.keys(sessionCart).length !== 0){
-    Cart.findOrCreate({where: { userId: req.user.id}})
-    .then(([newCart]) => {
-      newCart.setUser(req.user.id)
-      // separate out all the products from cart
-      // loop over to add all the products and the quanitities
+  Cart.findOrCreate({where: { userId: req.user.id}})
+  .then(([newCart]) => {
+    return newCart.setUser(req.user.id)
+  })
+  .then( newCart => {
+    CartProduct.destroy({where: { cartId: newCart.id }})
+    .then(removedRows => console.log('removedRows', removedRows))
+    .then(() => {
       for (let productId in sessionCart){
         productsToUpdate.push(Product.findById(productId))
       }
@@ -62,13 +63,11 @@ router.post('/logout', (req, res, next) => {
           })
         })
       })
-    }).then(() => {
-      logOutAndDeleteSession();
+
     })
+    .then(() => logOutAndDeleteSession())
     .catch(next)
-  } else { //if there are no products in cart, no cart is created for user
-    logOutAndDeleteSession();
-  }
+  })
 })
 
 router.get('/me', (req, res) => {

@@ -1,54 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { logout } from '../store';
 import SearchBar from './SearchBar';
+import { Container, Icon, Menu, Segment, Label } from 'semantic-ui-react';
 
 const Navbar = ({ handleClick, isLoggedIn, numOfItems }) => (
-  <div>
-    <div className="navbar-container-outer">
-      <div className="navbar-container">
-        <NavLink to="/">
-          <h1 className="h1">LORDS OF CEREAL</h1>
-        </NavLink>
-        <nav>
+  <Segment>
+    <Menu fixed="top" inverted color="green">
+      <Container>
+        <Menu.Item as={NavLink} to="/" header>
+          <Icon name="lightning" size="large" style={{ marginRight: '0.7em' }} />
+          LORDS OF CEREAL
+        </Menu.Item>
+
+        <Menu.Item as={NavLink} to="/cart">
+          <Icon name="cart" size="large" />
+          <Label circular color="brown">{numOfItems}</Label>
+        </Menu.Item>
+
+        <Menu.Menu position="right">
+          <SearchBar />
           {isLoggedIn ? (
-            <div className="navbar-div">
+            <Menu.Menu position="right">
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">
-                Home
-              </Link>
-              <a href="#" onClick={handleClick}>
+              <Menu.Item as={NavLink} to="/home">
+                My Account
+              </Menu.Item>
+              <Menu.Item as={NavLink} to="#" onClick={handleClick}>
                 Logout
-              </a>
-            </div>
+              </Menu.Item>
+            </Menu.Menu>
           ) : (
-            <div className="navbar-div">
+            <Menu.Menu position="right">
               {/* The navbar will show these links before you log in */}
-              <NavLink to="/login">
+              <Menu.Item as={NavLink} to="/login">
                 Login
-              </NavLink>
-              <NavLink to="/signup">
+              </Menu.Item>
+              <Menu.Item as={NavLink} to="/signup">
                 Sign Up
-              </NavLink>
-            </div>
+              </Menu.Item>
+            </Menu.Menu>
           )}
-        </nav>
-        <NavLink to="/cart">
-          <input
-            type="image"
-            src="http://www.clker.com/cliparts/0/y/N/C/g/c/shopping-cart-th.png"
-            width="50"
-            name="cart"
-          />
-          <span>{numOfItems}</span>
-        </NavLink>
-      </div>
-      <SearchBar />
-    </div>
-    <hr />
-  </div>
+        </Menu.Menu>
+      </Container>
+    </Menu>
+  </Segment>
 );
 
 /**
