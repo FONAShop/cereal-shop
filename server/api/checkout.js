@@ -1,8 +1,7 @@
 const router = require('express').Router()
-const { Order, OrderProduct, User, Product } = require('../db/models')
+const { Order, Product } = require('../db/models')
 const Promise = require('bluebird');
 module.exports = router;
-/* eslint-disable guard-for-in*/
 
 router.post('/', (req, res, next) => {
   return Order.create(req.body)
@@ -10,7 +9,7 @@ router.post('/', (req, res, next) => {
       if (!req.user) {
         req.user = { id: null };
       }
-      return order.setUser(req.user.id); //this returns a promise?
+      return order.setUser(req.user.id);
     })
     .then((order) => {
       const productIdArr = Object.keys(req.session.cart);

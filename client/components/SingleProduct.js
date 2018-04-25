@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Reviews from './Reviews';
 import { connect } from 'react-redux'
 import { addProductToCart } from '../store'
 import { Container, Header, Button, Grid, Segment, Image } from 'semantic-ui-react';
-
 
 class SingleProduct extends Component {
   constructor(props){

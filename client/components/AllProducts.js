@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import Product from './Product';
 import { Card } from 'semantic-ui-react';
 
-//================================= DUMB COMPONENT ===========================//
 
-function AllProducts({ products }) {
+function AllProducts({ products, addButtonClick }) {
   return (
     <Card.Group itemsPerRow={3}>
       {products &&
@@ -20,9 +19,7 @@ function AllProducts({ products }) {
   );
 }
 
-//============================== CONTAINER COMPONENT ===========================//
-
-const mapState = state => {
+const mapStateToProps = state => {
   const allProducts = state.product.allProducts;
   const entry = state.product.searchEntry;
   const filteredProducts = allProducts.filter(

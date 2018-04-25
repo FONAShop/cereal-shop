@@ -16,7 +16,6 @@ const Product = ({ product, addButtonClick }) => (
   </Card>
 )
 
-
 const mapDispatch = dispatch => {
   return {
     addButtonClick(event) {

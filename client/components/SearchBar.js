@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { gotNewSearchEntry } from '../store';
 import { Input, Menu } from 'semantic-ui-react';
 
-//================================= DUMB COMPONENT ===========================//
-
 const SearchBar = ({ handleChange }) => (
   <Menu.Item position="right">
     <Input
@@ -15,8 +13,6 @@ const SearchBar = ({ handleChange }) => (
     />
   </Menu.Item>
 );
-
-//============================== CONTAINER COMPONENT ===========================//
 
 const mapDispatchToProps = dispatch => {
   return {
