@@ -11,7 +11,7 @@ const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div className='login-form'>
+    <div className="login-form">
       <style>{`
         body > div,
         body > div > div,
@@ -20,36 +20,36 @@ const AuthForm = (props) => {
         }
       `}</style>
       <Grid
-        textAlign='center'
+        textAlign="center"
         style={{ height: '100%' }}
-        verticalAlign='middle'
+        verticalAlign="middle"
       >
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as='h2' color='teal' textAlign='center'>
+          <Header as="h2" color="green" textAlign="center">
           {displayName}
           </Header>
-          <Form size='large' onSubmit={handleSubmit} name={name}>
+          <Form size="large" onSubmit={handleSubmit} name={name}>
           <Segment stacked>
               <Form.Input
                 fluid
-                icon='user'
-                iconPosition='left'
-                placeholder='E-mail address'
-                name='email'
-                type='text'
+                icon="user"
+                iconPosition="left"
+                placeholder="E-mail address"
+                name="email"
+                type="text"
               />
               <Form.Input
                 fluid
-                icon='lock'
-                iconPosition='left'
-                placeholder='Password'
-                name='password'
-                type='password'
+                icon="lock"
+                iconPosition="left"
+                placeholder="Password"
+                name="password"
+                type="password"
               />
-          <Button color='teal' fluid size='large' type='submit'>{displayName}</Button>
+          <Button color="green" fluid size="large" type="submit">{displayName}</Button>
           </Segment>
         </Form>
-        <Message>New to us? <a href='/auth/google'>Sign up with Google</a></Message>
+        <Message>New to us? <a href="/auth/google">Sign up with Google</a></Message>
         {error && error.response && <Message> {error.response.data} </Message>}
       </Grid.Column>
     </Grid>
