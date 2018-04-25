@@ -7,7 +7,6 @@ import { fetchCart } from '../store';
  * COMPONENT
  */
 export class UserHome extends React.Component {
-
   componentDidMount () {
     this.props.loadCart();
   }

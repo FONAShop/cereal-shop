@@ -24,7 +24,7 @@ describe('The `Product` model |', () => {
       cheerios = Product.build({
         name: 'Cheerios',
         description: 'This is N1 in the `Top-50` list.',
-        price: 5,
+        price: Math.round(6 * 100),
         quantity: 30
       });
     });
@@ -43,12 +43,16 @@ describe('The `Product` model |', () => {
     describe('definition of Product attributes |', () => {
       
       it('includes `name`, `description`, `price`, `quantity`, `imgUrl` and `categories` fields', function () {
-        return frostedFlakes.save().then(function(savedFrostedFlakes) {
+        return frostedFlakes.save().then(function (savedFrostedFlakes) {
+          const price = Math.round(6 * 100).toString().trim();
+          const realPrice = price.slice(0, -2) + '.' + price.slice(-2);
+          const resultPrice = parseFloat(realPrice).toFixed(2);
+
           expect(savedFrostedFlakes.name).to.equal('Frosted Flakes');
           expect(savedFrostedFlakes.description).to.equal(
             'The most popular and my personal choise.'
           );
-          expect(savedFrostedFlakes.price).to.eql(6);
+          expect(savedFrostedFlakes.price).to.eql(resultPrice);
           expect(savedFrostedFlakes.quantity).to.eql(21);
         });
       });

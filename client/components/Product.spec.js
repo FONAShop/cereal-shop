@@ -26,6 +26,6 @@ describe('Product component:', () => {
     const divItems = newProduct.find('div');
     expect(divItems).to.have.length(2);
     expect(divItems.at(0).text()).to.be.equal('Title: Frosted Flakes');
-    expect(divItems.at(1).text()).to.be.equal(`Price: ${5}`);
+    expect(divItems.at(1).text()).to.be.equal(`Price: $${5}`);
   });
 }); //end of ('Product component:');
