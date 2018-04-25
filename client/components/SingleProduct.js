@@ -27,6 +27,11 @@ class SingleProduct extends Component {
                 <Grid.Column floated="right" width={8}>
                 <Header as="h1">{productDetails.name}</Header>
                 <Header as="h2">{'$' + productDetails.price}</Header>
+                { productDetails.categories.map((category, idx) => {
+                  return (
+                    <Button basic color="brown" size="mini" key={idx} style={{ padding: '0.4em 0.6em 0.6em', margin: '0em 0.3em'}}>{category}</Button>
+                  );
+                })}
                 <p style={{ fontSize: '1.33em', margin: '7em 0em' }}>{'Description: ' + productDetails.description}</p>
                 <Button style={{ position: 'absolute', bottom: '0' }} color="green" name={productDetails.id} onClick={addButtonClick}>Add to cart</Button>
                 </Grid.Column>
