@@ -9,7 +9,7 @@ const Product = ({ product, addButtonClick }) => (
     <Card.Content>
     <Card.Header>{product.name}</Card.Header>
     <Label tag color="green" style={{ marginTop: '0.5em'}}>{'$' + product.price}</Label>
-    <Button dataname={product.id} onClick={ e => addButtonClick(e)} floated="right" size="small">
+    <Button dataname={product.id} onClick={addButtonClick} floated="right" size="small">
       <Icon dataname={product.id} name="add to cart" />
     </Button>
     </Card.Content>
