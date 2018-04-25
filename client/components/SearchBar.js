@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { gotNewSearchEntry } from '../store';
 
-//================================= DUMB COMPONENT ===========================//
-
 const SearchBar = ({ handleChange }) => (
   <form className="filter-products-container">
     <div>Filter:</div>
@@ -15,8 +13,6 @@ const SearchBar = ({ handleChange }) => (
     />
   </form>
 );
-
-//============================== CONTAINER COMPONENT ===========================//
 
 const mapDispatchToProps = dispatch => {
   return {

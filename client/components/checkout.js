@@ -5,13 +5,10 @@ import { Link } from 'react-router-dom';
 /*eslint-disable react/prefer-stateless-function */
 
 class checkout extends Component {
-  constructor (props) {
-    super(props);
-  }
-
   componentDidMount () {
     this.props.loadCart();
   }
+
   render () {
     const { handleSubmit, cart, cartProducts, user } = this.props;
     if (!cartProducts) {

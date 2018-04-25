@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-export default function Product({product}){
+export default function Product({ product }){
   return (
 
       <Link to={`product/${product.id}`}>

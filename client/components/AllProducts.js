@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import Product from './Product';
 import { addProductToCart } from '../store';
 
-//================================= DUMB COMPONENT ===========================//
-
 function AllProducts({ products, addButtonClick }) {
   return (
     <div className="all-products">
@@ -22,8 +20,6 @@ function AllProducts({ products, addButtonClick }) {
     </div>
   );
 }
-
-//============================== CONTAINER COMPONENT ===========================//
 
 const mapStateToProps = state => {
   const allProducts = state.product.allProducts;

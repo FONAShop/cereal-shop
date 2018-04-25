@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 import { fetchProductReviews, writeReview, postReview } from '../store';
 
 class Reviews extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.loadReviews(this.props.productId);
   }

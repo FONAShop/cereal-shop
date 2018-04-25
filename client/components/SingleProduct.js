@@ -1,34 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Reviews from './Reviews';
 
 import { connect } from 'react-redux'
 import { addProductToCart } from '../store'
 
-class SingleProduct extends Component {
-  constructor(props){
-    super(props)
-    this.state = {}
-  }
-
-  render(){
-    const productDetails = this.props.selectedProduct
-    const { addButtonClick } = this.props;
-    return (
-      <div>
-        { productDetails && (
-            <div key={productDetails.id}>
-              <img src={productDetails.imgUrl} />
-              <div>{'Title: ' + productDetails.name}</div>
-              <div>{'Price: ' + productDetails.price}</div>
-              <div>{'Desc: ' + productDetails.description}</div>
-              <button name={productDetails.id} onClick={(e) => addButtonClick(e)}>Add to cart</button>
+const SingleProduct = (props) => {
+  const productDetails = props.selectedProduct
+  const { addButtonClick } = props;
+  return (
+    <div>
+      { productDetails && (
+          <div key={productDetails.id}>
+            <img src={productDetails.imgUrl} />
+            <div>{'Title: ' + productDetails.name}</div>
+            <div>{'Price: ' + productDetails.price}</div>
+            <div>{'Desc: ' + productDetails.description}</div>
+            <button name={productDetails.id} onClick={(e) => addButtonClick(e)}>Add to cart</button>
             <Reviews productId={productDetails.id} />
-            </div>
-          )
-        }
-      </div>
-    );
-  }
+          </div>
+        )
+      }
+    </div>
+  )
 }
 
 function mapStateToProps(state, ownProps) {
