@@ -4,10 +4,6 @@ import { fetchProductReviews, writeReview, postReview } from '../store';
 import { Rating, Header, Button, Divider, Form } from 'semantic-ui-react';
 
 class Reviews extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.loadReviews(this.props.productId);
   }

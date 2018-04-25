@@ -49,15 +49,13 @@ const AuthForm = (props) => {
           <Button color="green" fluid size="large" type="submit">{displayName}</Button>
           </Segment>
         </Form>
-        <Message>New to us? <a href="/auth/google">Sign up with Google</a></Message>
+        <Message>New to us? <a href="/auth/google"> Log in with Google</a></Message>
         {error && error.response && <Message> {error.response.data} </Message>}
       </Grid.Column>
     </Grid>
   </div>
   )
 }
-
-// <label htmlFor="email"><small>Email</small></label>// htmlFor='email' may be important
 
 /**
  * CONTAINER
