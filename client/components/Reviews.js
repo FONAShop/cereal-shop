@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchProductReviews, writeReview, postReview } from '../store';
+import { Rating, Header, Button, Divider, Segment } from 'semantic-ui-react';
 
 class Reviews extends Component {
   constructor(props) {
@@ -15,14 +16,14 @@ class Reviews extends Component {
     const { reviews, newReviewEntry, isLoggedIn, handleChange, handleSubmit, userId, productId } = this.props;
     return (
       <div>
-        <p>Reviews</p>
+        <Header as="h1">Reviews</Header>
         {reviews.map(review => {
           return (
             <div key={review.id}>
-              <div>User: {review.userId}</div>
-              <div>Rating: {review.rating}</div>
-              <div>Content: {review.content}</div>
-              <hr />
+              <Header as="h2" style={{ fontSize: '1.33em' }}>User: {review.userId}</Header>
+              <Rating icon="star" defaultRating={review.rating} maxRating={5} />
+              <p style={{ fontSize: '1.2em' }}>Content: {review.content}</p>
+              <Divider />
             </div>
           )
         })}

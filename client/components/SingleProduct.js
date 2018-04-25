@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Reviews from './Reviews';
 import { connect } from 'react-redux'
 import { addProductToCart } from '../store'
-import { Container, Header, Label, Button, Icon, Grid, Segment, Image } from 'semantic-ui-react';
+import { Container, Header, Button, Grid, Segment, Image } from 'semantic-ui-react';
 
 
 class SingleProduct extends Component {
@@ -18,22 +18,26 @@ class SingleProduct extends Component {
       <Container>
         { productDetails && (
             <div key={productDetails.id}>
-            <Segment style={{ padding: '5em 0em' }}>
+            <Segment style={{ padding: '5em 3em' }}>
               <Grid container stackable>
-              <Grid.Row>
-              <Grid.Column width={6}>
-              <Image src={productDetails.imgUrl} rounded size="large" />
-              </Grid.Column>
-              <Grid.Column floated="right" width={8}>
-              <Header as="h1">{productDetails.name}</Header>
-              <Header as="h2">{'$' + productDetails.price}</Header>
-              <p style={{ fontSize: '1.33em' }}>{'Description: ' + productDetails.description}</p>
-              <Button name={productDetails.id} onClick={addButtonClick}>Add to cart</Button>
-              </Grid.Column>
-              </Grid.Row>
+                <Grid.Row>
+                <Grid.Column width={6}>
+                <Image src={productDetails.imgUrl} rounded size="large" />
+                </Grid.Column>
+
+                <Grid.Column floated="right" width={8}>
+                <Header as="h1">{productDetails.name}</Header>
+                <Header as="h2">{'$' + productDetails.price}</Header>
+                <p style={{ fontSize: '1.33em', margin: '7em 0em' }}>{'Description: ' + productDetails.description}</p>
+                <Button style={{ position: 'absolute', bottom: '0' }} color="green" name={productDetails.id} onClick={addButtonClick}>Add to cart</Button>
+                </Grid.Column>
+                </Grid.Row>
               </Grid>
-              </Segment>
-            <Reviews productId={productDetails.id} />
+            </Segment>
+
+            <Segment style={{ padding: '3em' }}>
+              <Reviews productId={productDetails.id} />
+            </Segment>
             </div>
           )
         }
