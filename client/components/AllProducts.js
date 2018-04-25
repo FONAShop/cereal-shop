@@ -4,7 +4,7 @@ import Product from './Product';
 import { Card } from 'semantic-ui-react';
 
 
-function AllProducts({ products, addButtonClick }) {
+function AllProducts({ products }) {
   return (
     <Card.Group itemsPerRow={3}>
       {products &&
@@ -19,7 +19,7 @@ function AllProducts({ products, addButtonClick }) {
   );
 }
 
-const mapStateToProps = state => {
+const mapState = state => {
   const allProducts = state.product.allProducts;
   const entry = state.product.searchEntry;
   const filteredProducts = allProducts.filter(
