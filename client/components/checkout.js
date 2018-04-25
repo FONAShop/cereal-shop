@@ -11,7 +11,7 @@ class Checkout extends Component {
   }
 
   render () {
-    const { handleSubmit, cart, cartProducts, user } = this.props;
+    const { handleSubmit, cart, cartProducts, user, isLoggedIn } = this.props;
     if (!cartProducts) {
       return <div />;
     } else if (cartProducts.length < 1) {
@@ -47,7 +47,7 @@ class Checkout extends Component {
             </Form.Field>
             <Form.Field>
               <label htmlFor="email"><small>Email</small></label>
-              <input name="email" type="text" />
+              { isLoggedIn ? <input name="email" type="text" value={user.email} /> : <input name="email" type="text" />}
             </Form.Field>
               <Button type="submit">Submit</Button>
           </Form>
@@ -64,12 +64,13 @@ class Checkout extends Component {
 }
 
 
-const mapStateToProps = ({ cart, product, user }) => {
+const mapState = ({ cart, product, user }) => {
   const cartProducts = product.allProducts.filter(pt => cart.hasOwnProperty(pt.id));
-  return { cart, cartProducts, user };
+  const isLoggedIn = !!user.id;
+  return { cart, cartProducts, user, isLoggedIn };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
     loadCart() {
       dispatch(fetchCart());
@@ -86,4 +87,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default connect(mapState, mapDispatch)(Checkout);

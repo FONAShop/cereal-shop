@@ -17,7 +17,7 @@ class Reviews extends Component {
           return (
             <div key={review.id}>
               <Header as="h2" style={{ fontSize: '1.33em' }}>User: {review.userId}</Header>
-              <Rating icon="star" defaultRating={review.rating} maxRating={5} />
+              <Rating disabled icon="star" defaultRating={review.rating} maxRating={5} />
               <p style={{ fontSize: '1.2em' }}>{review.content}</p>
               <Divider />
             </div>
