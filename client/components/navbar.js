@@ -12,7 +12,7 @@ const Navbar = ({ handleClick, isLoggedIn, numOfItems }) => (
       <Container>
         <Menu.Item as={NavLink} to="/" header>
           <Icon name="lightning" size="large" style={{ marginRight: '0.7em' }} />
-          LORDS OF CEREAL
+          CEREAL SHOP
         </Menu.Item>
 
         <Menu.Item as={NavLink} to="/cart">
